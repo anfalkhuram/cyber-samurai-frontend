@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Project details - Cyber Samurai Software Solutions" />
+  <title>Project Details - Cyber Samurai Software Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"> -->
+  <link href="assets/css/all.min.css" rel="stylesheet">
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-black text-light">
+  
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="fas fa-code"></i> Cyber Samurai
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="certifications.html">Certifications</a></li>
+          <li class="nav-item"><a class="nav-link" href="testimonials.html">Testimonials</a></li>
+          <li class="nav-item"><a class="nav-link" href="team.html">Team</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Project Header -->
+  <section class="section custom-hero-padding">
+    <div class="container">
+      <a href="projects.html" class="btn btn-ghost mb-4">
+        <i class="fas fa-arrow-left"></i> Back to Projects
+      </a>
+      
+      <div class="row mb-5">
+        <div class="col-lg-8">
+          <h1 id="projectTitle">E-Commerce Platform</h1>
+          <p class="lead" id="projectTagline">Modern e-commerce solution with React and Node.js</p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <div class="mb-3">
+            <strong>Role:</strong> <span id="projectRole">Full Stack Developer</span>
+          </div>
+          <div class="mb-3">
+            <strong>Duration:</strong> <span id="projectDuration">6 months</span>
+          </div>
+          <div>
+            <a href="#" class="btn btn-primary me-2" id="projectDemo">
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+            <a href="#" class="btn btn-outline-primary" id="projectGithub">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Image -->
+      <div class="mb-5" id="projectHero" style=" background-image: url('assets/images/e-commerece.png')">
+        <!-- <img src="assets/images/e-commerece.png" alt="Project Hero" class="img-fluid rounded"  loading="lazy"> -->
+      </div>
+
+      <!-- Tech Stack -->
+      <div class="mb-5">
+        <h3>Tech Stack</h3>
+        <div id="projectTech">
+          <span class="tech-badge project-tech-stack" >React</span>
+          <span class="tech-badge project-tech-stack">Node.js</span>
+          <span class="tech-badge project-tech-stack">MongoDB</span>
+          <span class="tech-badge project-tech-stack">Express</span>
+          <span class="tech-badge project-tech-stack">Stripe</span>
+          <span class="tech-badge project-tech-stack">Redux</span>
+        </div>
+      </div>
+
+      <!-- Problem Section -->
+      <section class="mb-5">
+        <h2 class="text-accent mb-4">The Problem</h2>
+        <p>Our client needed a modern e-commerce platform that could handle high traffic, provide real-time inventory management, and offer a seamless shopping experience. The existing system was outdated, slow, and couldn't scale with their growing business needs.</p>
+        <p>Key challenges included:</p>
+        <ul>
+          <li>Legacy system with poor performance and scalability issues</li>
+          <li>No real-time inventory synchronization</li>
+          <li>Limited payment gateway options</li>
+          <li>Poor mobile user experience</li>
+          <li>Complex order management process</li>
+        </ul>
+      </section>
+
+      <!-- Solution Section -->
+      <section class="mb-5">
+        <h2 class="text-accent mb-4">The Solution</h2>
+        <p>We developed a modern, scalable e-commerce platform using React for the frontend and Node.js for the backend. The solution includes:</p>
+        <ul>
+          <li><strong>Real-time Inventory Management:</strong> WebSocket integration for live inventory updates</li>
+          <li><strong>Advanced Search & Filters:</strong> Elasticsearch integration for fast product search</li>
+          <li><strong>Multiple Payment Options:</strong> Stripe integration with support for credit cards, PayPal, and digital wallets</li>
+          <li><strong>Responsive Design:</strong> Mobile-first approach ensuring great experience on all devices</li>
+          <li><strong>Admin Dashboard:</strong> Comprehensive admin panel for managing products, orders, and customers</li>
+          <li><strong>Order Tracking:</strong> Real-time order status updates with email notifications</li>
+        </ul>
+      </section>
+
+      <!-- Features Section -->
+      <section class="mb-5">
+        <h2 class="text-accent mb-4">Key Features</h2>
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5><i class="fas fa-shopping-cart text-accent"></i> <span class="text-accent ms-1">Shopping Cart</span></h5>
+                <p>Persistent shopping cart with saved items and guest checkout option.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5><i class="fas fa-search text-accent"></i> <span class="text-accent ms-1">Advanced Search</span></h5>
+                <p>Fast product search with filters, sorting, and category navigation.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5><i class="fas fa-credit-card text-accent"></i> <span class="text-accent ms-1">Secure Payments</span></h5>
+                <p>Multiple payment gateways with PCI-compliant secure transactions.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5><i class="fas fa-chart-line text-accent"></i> <span class="text-accent ms-1">Analytics</span></h5>
+                <p>Built-in analytics dashboard for sales, products, and customer insights.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Architecture Section -->
+      <section class="mb-5">
+        <h2 class="text-accent mb-4">Architecture</h2>
+        <p>The platform follows a microservices architecture pattern with the following components:</p>
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="text-accent">Frontend (React)</h5>
+            <ul>
+              <li class="text-light">Component-based architecture with reusable UI components</li>
+              <li class="text-light">Redux for state management</li>
+              <li class="text-light">React Router for navigation</li>
+              <li class="text-light">Responsive design with Bootstrap</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="text-accent">Backend (Node.js)</h5>
+            <ul>
+              <li class="text-white">RESTful API with Express.js</li>
+              <li class="text-white">MongoDB for data storage</li>
+              <li class="text-white">JWT authentication</li>
+              <li class="text-white">WebSocket for real-time updates</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="text-accent">Infrastructure</h5>
+            <ul>
+              <li class="text-white">AWS for hosting and CDN</li>
+              <li class="text-white">Docker containers for deployment</li>
+              <li class="text-white">CI/CD pipeline with GitHub Actions</li>
+              <li class="text-white">Monitoring with New Relic</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screenshots Gallery -->
+      <section class="mb-5">
+        <h2 class="text-accent mb-4">Screenshots</h2>
+        <div class="row g-3 project-gallery">
+          <div class="col-md-4">
+            <div class="gallery-item">
+              <img src="assets/images/home-page.png" alt="Homepage" class="img-fluid rounded" loading="lazy">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="gallery-item">
+              <img src="assets/images/product-page.png" alt="Product Page" class="img-fluid rounded" loading="lazy">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="gallery-item">
+              <img src="assets/images/checkout-page.png" alt="Checkout" class="img-fluid rounded" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Code Snippets -->
+      <section class="mb-5">
+        <h2 class="text-accent mb-4">Code Highlights</h2>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="text-accent">API Endpoint Example</h5>
+            <pre><code>// GET /api/products
+router.get('/products', async (req, res) => {
+  try {
+    const { page = 1, limit = 10, category, search } = req.query;
+    const query = {};
+    
+    if (category) query.category = category;
+    if (search) {
+      query.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { description: { $regex: search, $options: 'i' } }
+      ];
+    }
+    
+    const products = await Product.find(query)
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+    
+    const count = await Product.countDocuments(query);
+    
+    res.json({
+      products,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Results Section -->
+      <section class="mb-5">
+        <h2 class="text-accent mb-4">Results</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="stats-card">
+              <span class="stats-number">300%</span>
+              <span class="stats-label">Increase in Sales</span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stats-card">
+              <span class="stats-number">50%</span>
+              <span class="stats-label">Faster Load Time</span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stats-card">
+              <span class="stats-number">95%</span>
+              <span class="stats-label">Customer Satisfaction</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <h5>Cyber Samurai Software Solutions</h5>
+          <p class="text-secondary">Crafting exceptional digital experiences with cutting-edge technology.</p>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h5>Quick Links</h5>
+          <a href="about.html">About Us</a>
+          <a href="projects.html">Projects</a>
+          <a href="services.html">Services</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h5>Connect</h5>
+          <div class="social-links">
+            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="mailto:contact@cybersamurai.dev" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          </div>
+          <p class="mt-3 text-secondary">
+            <i class="fas fa-envelope"></i> contact@cybersamurai.dev<br>
+            <i class="fas fa-phone"></i> +1 (555) 123-4567
+          </p>
+        </div>
+      </div>
+      <hr class="border-secondary my-4">
+      <div class="text-center text-secondary">
+        <p>&copy; 2024 Cyber Samurai Software Solutions. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
+  <script src="assets/js/jquery.js"></script>
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/all.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    // Simple project data loader (can be enhanced with actual data)
+    $(document).ready(function() {
+      var projectId = new URLSearchParams(window.location.search).get('id') || '1';
+      // In a real implementation, you would fetch project data based on ID
+      // For now, the page shows the default project (E-Commerce Platform)
+    });
+  </script>
+</body>
+</html>
+

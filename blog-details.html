@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description"
+    content="Building Scalable React Applications – deep-dive guide on architecture, state management, code splitting, and testing. By Cyber Samurai." />
+  <title>Building Scalable React Applications – Cyber Samurai Blog</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=Fira+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link href="assets/css/all.min.css" rel="stylesheet">
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/styles.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-black text-light">
+
+  <!-- Reading Progress Bar -->
+  <div id="readProgress"></div>
+
+  <!-- navbar  -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="fas fa-code"></i> Cyber Samurai
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+          <li class="nav-item"><a class="nav-link active" href="blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="certifications.html">Certifications</a></li>
+          <li class="nav-item"><a class="nav-link" href="testimonials.html">Testimonials</a></li>
+          <li class="nav-item"><a class="nav-link" href="team.html">Team</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- hero  -->
+  <section class="bd-hero">
+    <!-- Glow orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="bd-hero-fade"></div>
+
+    <div class="bd-hero-content">
+      <div class="container">
+
+        <!-- Breadcrumb -->
+        <nav class="bd-breadcrumb" aria-label="breadcrumb">
+          <a href="index.html">Home</a>
+          <span class="sep"><i class="fas fa-chevron-right"></i></span>
+          <a href="blog.html">Blog</a>
+          <span class="sep"><i class="fas fa-chevron-right"></i></span>
+          <span class="custom-color">Web Development</span>
+        </nav>
+
+        <span class="cat-pill"><i class="fas fa-globe me-1"></i>Web Development</span>
+
+        <h1 class="bd-title">Building Scalable React<br class="d-none d-md-block"> Applications</h1>
+
+        <div class="bd-meta">
+          <span><i class="fas fa-user-circle"></i> Alex Carter</span>
+          <span class="divider">·</span>
+          <span><i class="fas fa-calendar-alt"></i> March 15, 2024</span>
+          <span class="divider">·</span>
+          <span><i class="fas fa-clock"></i> 9 min read</span>
+          <span class="divider">·</span>
+          <span><i class="fas fa-eye"></i> 4.2k views</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- main content  -->
+  <div class="bd-wrapper">
+    <div class="container">
+
+      <!-- Back link -->
+      <a href="blog.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to All Posts
+      </a>
+
+      <!-- Stats strip -->
+      <div class="post-stats">
+        <div class="stat-chip"><i class="fas fa-heart"></i> 318 likes</div>
+        <div class="stat-chip"><i class="fas fa-comment"></i> 47 comments</div>
+        <div class="stat-chip"><i class="fas fa-bookmark"></i> 1.2k saves</div>
+        <div class="stat-chip"><i class="fas fa-share"></i> 89 shares</div>
+      </div>
+
+      <div class="row g-5">
+
+        <!-- article  -->
+        <div class="col-lg-8">
+          <article class="article-content" id="articleBody">
+
+            <!-- INTRO -->
+            <p>
+              React has become the de-facto UI library for modern web development, but scaling a React application
+              beyond a handful of components quickly reveals the cracks in an ad-hoc architecture. Whether you're
+              building a SaaS product with a five-person team or a solo side project you hope to grow, these patterns
+              will save you from painful rewrites later.
+            </p>
+
+            <div class="callout callout-info">
+              <i class="fas fa-info-circle"></i>
+              <p>This guide assumes you are familiar with React fundamentals (hooks, context, JSX). If you're new to
+                React, check out the <a href="#">official docs</a> first.</p>
+            </div>
+
+            <!-- SECTION 1 -->
+            <h2 id="folder-structure">1. Feature-Based Folder Structure</h2>
+            <p>
+              The first architectural decision you'll make is how to organise your files. The most common anti-pattern —
+              dumping everything into a flat <code>components/</code> folder — becomes unmanageable after 20+
+              components. Instead, adopt a <strong>feature-first</strong> layout where each feature owns its components,
+              hooks, services, and tests.
+            </p>
+
+            <!-- Inline visual image (SVG placeholder styled as a file tree) -->
+            <div class="article-img-wrap">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" class="blog-image-wrap">
+                <rect width="720" height="320" fill="#0a0a0a" />
+                <!-- Grid lines -->
+                <line x1="0" y1="0" x2="720" y2="0" stroke="#1a2a2a" stroke-width="1" />
+                <!-- Folder lines -->
+                <text x="36" y="48" font-family="Fira Mono,monospace" font-size="13" fill="#00bfa6">src/</text>
+                <text x="36" y="76" font-family="Fira Mono,monospace" font-size="13" fill="#cfcfcf">├── <tspan
+                    fill="#9ad3ff">features/</tspan></text>
+                <text x="36" y="100" font-family="Fira Mono,monospace" font-size="13" fill="#cfcfcf">│ ├── <tspan
+                    fill="#9ad3ff">auth/</tspan></text>
+                <text x="36" y="124" font-family="Fira Mono,monospace" font-size="13" fill="#cfcfcf">│ │ ├── <tspan
+                    fill="#cfcfcf">components/</tspan></text>
+                <text x="36" y="148" font-family="Fira Mono,monospace" font-size="13" fill="#cfcfcf">│ │ ├── <tspan
+                    fill="#cfcfcf">hooks/</tspan></text>
+                <text x="36" y="172" font-family="Fira Mono,monospace" font-size="13" fill="#cfcfcf">│ │ └── <tspan
+                    fill="#cfcfcf">authSlice.js</tspan></text>
+                <text x="36" y="196" font-family="Fira Mono,monospace" font-size="13" fill="#cfcfcf">│ └── <tspan
+                    fill="#9ad3ff">dashboard/</tspan></text>
+                <text x="36" y="220" font-family="Fira Mono,monospace" font-size="13" fill="#cfcfcf">├── <tspan
+                    fill="#9ad3ff">shared/</tspan>
+                  <tspan fill="#4a6a6a">← truly reusable UI</tspan>
+                </text>
+                <text x="36" y="244" font-family="Fira Mono,monospace" font-size="13" fill="#cfcfcf">└── <tspan
+                    fill="#9ad3ff">app/</tspan></text>
+                <text x="36" y="268" font-family="Fira Mono,monospace" font-size="13" fill="#cfcfcf"> ├── <tspan
+                    fill="#cfcfcf">store.js</tspan></text>
+                <text x="36" y="292" font-family="Fira Mono,monospace" font-size="13" fill="#cfcfcf"> └── <tspan
+                    fill="#cfcfcf">router.jsx</tspan></text>
+                <!-- Right panel label -->
+                <rect x="430" y="30" width="260" height="260" rx="10" fill="#111" stroke="#1e2a2a" />
+                <text x="445" y="58" font-family="Inter,sans-serif" font-size="11" fill="#00bfa6" font-weight="700"
+                  letter-spacing="1">FEATURE MODULE RULES</text>
+                <text x="445" y="84" font-family="Inter,sans-serif" font-size="12" fill="#9aa0a6">✔ Own
+                  components</text>
+                <text x="445" y="108" font-family="Inter,sans-serif" font-size="12" fill="#9aa0a6">✔ Own hooks &amp;
+                  services</text>
+                <text x="445" y="132" font-family="Inter,sans-serif" font-size="12" fill="#9aa0a6">✔ Own tests</text>
+                <text x="445" y="156" font-family="Inter,sans-serif" font-size="12" fill="#9aa0a6">✔ Own slice /
+                  store</text>
+                <text x="445" y="180" font-family="Inter,sans-serif" font-size="12" fill="#9aa0a6">✘ Import from
+                  other</text>
+                <text x="445" y="198" font-family="Inter,sans-serif" font-size="12" fill="#9aa0a6"> features
+                  directly</text>
+                <text x="445" y="230" font-family="Inter,sans-serif" font-size="12" fill="#4a6a6a">Cross-feature
+                  sharing</text>
+                <text x="445" y="248" font-family="Inter,sans-serif" font-size="12" fill="#4a6a6a">goes through
+                  shared/</text>
+              </svg>
+              <div class="article-img-caption"><i class="fas fa-sitemap me-1"></i> Recommended feature-based folder
+                structure for large React apps</div>
+            </div>
+
+            <p>
+              This structure means all code related to the <em>auth</em> feature lives under
+              <code>features/auth/</code>. When you modify login flow, you touch only that folder — no cross-cutting
+              surprises.
+            </p>
+
+            <!-- SECTION 2 -->
+            <h2 id="state-management">2. State Management Strategy</h2>
+            <p>
+              One of the biggest scaling mistakes is using a single state solution for every type of state. React has
+              several distinct state categories, each with an optimal tool:
+            </p>
+
+            <!-- Key grid cards -->
+            <div class="key-grid">
+              <div class="key-card">
+                <i class="fas fa-toggle-on"></i>
+                <h6>Local UI State</h6>
+                <p>useState / useReducer — modals, toggles, form inputs</p>
+              </div>
+              <div class="key-card">
+                <i class="fas fa-server"></i>
+                <h6>Server State</h6>
+                <p>React Query or SWR — async data, caching, re-fetching</p>
+              </div>
+              <div class="key-card">
+                <i class="fas fa-globe"></i>
+                <h6>Global Client State</h6>
+                <p>Zustand (lean) or Redux Toolkit (team-scale)</p>
+              </div>
+              <div class="key-card">
+                <i class="fas fa-link"></i>
+                <h6>URL State</h6>
+                <p>React Router search params — filters, pagination, tabs</p>
+              </div>
+            </div>
+
+            <div class="callout callout-tip">
+              <i class="fas fa-lightbulb"></i>
+              <p><strong>Pro tip:</strong> Before adding Redux, ask yourself: "Is this state used in more than 2
+                unrelated subtrees?" If not, lift local state or use React Query for server data instead.</p>
+            </div>
+
+            <div class="code-block">
+              <span class="code-block-label">React Query</span>
+              <pre><code>// Fetch and cache a user profile — no useEffect needed
+const { data: profile, isLoading, isError } = useQuery({
+  queryKey: ['profile', userId],
+  queryFn: () => api.getUser(userId),
+  staleTime: 5 * 60 * 1000,   // consider fresh for 5 minutes
+  retry: 2,
+});
+
+if (isLoading) return &lt;Skeleton /&gt;;
+if (isError)   return &lt;ErrorBanner /&gt;;
+return &lt;ProfileCard user={profile} /&gt;;</code></pre>
+            </div>
+
+            <!-- SECTION 3 -->
+            <h2 id="code-splitting">3. Code Splitting &amp; Lazy Loading</h2>
+            <p>
+              The average React bundle shipped without code-splitting is 350 KB+. Every KB the user doesn't need on the
+              first paint is pure waste. React's built-in <code>lazy()</code> and <code>Suspense</code> make route-level
+              splitting trivial:
+            </p>
+
+            <div class="code-block">
+              <span class="code-block-label">React Router + Lazy</span>
+              <pre><code>import { lazy, Suspense } from 'react';
+import { Routes, Route } from 'react-router-dom';
+
+const Dashboard  = lazy(() => import('./features/dashboard/Dashboard'));
+const Analytics  = lazy(() => import('./features/analytics/Analytics'));
+const Settings   = lazy(() => import('./features/settings/Settings'));
+
+function App() {
+  return (
+    &lt;Suspense fallback={&lt;FullPageSpinner /&gt;}&gt;
+      &lt;Routes&gt;
+        &lt;Route path="/dashboard" element={&lt;Dashboard /&gt;} /&gt;
+        &lt;Route path="/analytics" element={&lt;Analytics /&gt;} /&gt;
+        &lt;Route path="/settings"  element={&lt;Settings /&gt;}  /&gt;
+      &lt;/Routes&gt;
+    &lt;/Suspense&gt;
+  );
+}</code></pre>
+            </div>
+
+            <p>
+              For component-level splitting — heavy chart libraries, rich-text editors, maps — wrap individual
+              components in <code>lazy()</code> with a lightweight skeleton fallback. This alone can cut initial bundle
+              size by 40–60%.
+            </p>
+
+            <!-- SECTION 4 -->
+            <h2 id="performance">4. Performance: Avoiding Unnecessary Re-renders</h2>
+
+            <blockquote>
+              Every re-render that isn't caused by a state change your component cares about is a wasted render.
+            </blockquote>
+
+            <p>
+              Use these tools judiciously — don't reach for them prematurely, but do apply them in list items and
+              context consumers:
+            </p>
+
+            <ul>
+              <li><strong><code>React.memo(Component)</code></strong> — skip re-render if props haven't changed
+                (shallow-equal check)</li>
+              <li><strong><code>useMemo(fn, deps)</code></strong> — memoize expensive derived values</li>
+              <li><strong><code>useCallback(fn, deps)</code></strong> — stable function references for event handlers
+                passed as props</li>
+              <li><strong>Virtualisation</strong> — render only visible list items with
+                <code>@tanstack/react-virtual</code> or <code>react-window</code>
+              </li>
+            </ul>
+
+            <div class="code-block">
+              <span class="code-block-label">React.memo + useCallback</span>
+              <pre><code>// Parent
+const handleDelete = useCallback((id) => {
+  setItems(prev => prev.filter(item => item.id !== id));
+}, []); // stable reference — no re-render cascade
+
+// Child
+const ListItem = React.memo(({ item, onDelete }) => (
+  &lt;div&gt;
+    {item.label}
+    &lt;button onClick={() => onDelete(item.id)}&gt;Delete&lt;/button&gt;
+  &lt;/div&gt;
+));
+// Re-renders only when item.id/item.label or onDelete changes</code></pre>
+            </div>
+
+            <!-- SECTION 5 -->
+            <h2 id="testing">5. Testing Strategy</h2>
+            <p>A pragmatic testing pyramid for React teams:</p>
+
+            <ol>
+              <li><strong>Unit tests</strong> — pure utility functions and custom hooks with <strong>Vitest</strong> or
+                Jest. Fast, no DOM.</li>
+              <li><strong>Component tests</strong> — behaviour-focused with <strong>React Testing Library</strong>. Test
+                what the user sees and clicks, not implementation details.</li>
+              <li><strong>Integration tests</strong> — test feature slices end-to-end within the app, mocking only the
+                network layer (MSW).</li>
+              <li><strong>E2E tests</strong> — critical user journeys with <strong>Playwright</strong>. Run on every PR,
+                fast enough to not block deployments.</li>
+            </ol>
+
+            <div class="callout callout-info">
+              <i class="fas fa-flask"></i>
+              <p>Avoid testing implementation details (internal state, private methods). If a refactor breaks your tests
+                without changing user-visible behaviour, your tests are too coupled to the implementation.</p>
+            </div>
+
+            <!-- SECTION 6 -->
+            <h2 id="conclusion">Conclusion</h2>
+            <p>
+              Scalable React isn't a single library or pattern — it's a set of principled decisions made early and
+              applied consistently. To recap:
+            </p>
+            <ul>
+              <li>🗂 <strong>Feature-based folder structure</strong> to contain complexity</li>
+              <li>🧠 <strong>Right state tool for the right state</strong> (local → server → global → URL)</li>
+              <li>⚡ <strong>Route and component-level code splitting</strong> for fast first paints</li>
+              <li>🔁 <strong>Selective memoisation</strong> where re-renders are measurably expensive</li>
+              <li>🧪 <strong>Behaviour-driven tests</strong> that survive refactors</li>
+            </ul>
+            <p>
+              Apply these incrementally. Start with the next feature you build, let the structure emerge naturally, and
+              revisit the principles as your team and codebase grow. Happy shipping! 🚀
+            </p>
+
+            <!-- Tags -->
+            <hr class="fancy-divider">
+            <div class="tag-list">
+              <span class="tag-pill">#React</span>
+              <span class="tag-pill">#JavaScript</span>
+              <span class="tag-pill">#Architecture</span>
+              <span class="tag-pill">#Performance</span>
+              <span class="tag-pill">#Frontend</span>
+              <span class="tag-pill">#WebDev</span>
+              <span class="tag-pill">#StateManagement</span>
+            </div>
+
+          </article>
+
+          <!-- ── Author Card ── -->
+          <div class="author-card">
+            <div class="author-avatar">
+              <!-- SVG avatar placeholder -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+                <defs>
+                  <radialGradient id="aGrad" cx="50%" cy="40%" r="60%">
+                    <stop offset="0%" stop-color="#00bfa6" stop-opacity=".35" />
+                    <stop offset="100%" stop-color="#0f0f0f" stop-opacity="1" />
+                  </radialGradient>
+                </defs>
+                <rect width="80" height="80" rx="40" fill="url(#aGrad)" />
+                <circle cx="40" cy="30" r="14" fill="#1a2a2a" stroke="#00bfa6" stroke-width="1.5" />
+                <ellipse cx="40" cy="70" rx="22" ry="16" fill="#1a2a2a" stroke="#00bfa6" stroke-width="1.5" />
+                <circle cx="40" cy="28" r="8" fill="#cfcfcf" opacity=".7" />
+                <ellipse cx="40" cy="65" rx="14" ry="10" fill="#cfcfcf" opacity=".55" />
+              </svg>
+            </div>
+            <div>
+              <div class="author-name">Alex Carter</div>
+              <div class="author-role">Senior Frontend Engineer · Cyber Samurai</div>
+              <p class="author-bio">Alex has 8+ years of experience architecting large-scale web applications. He
+                specialises in React, TypeScript, and modern frontend patterns. When not coding, he contributes to
+                open-source and mentors junior developers.</p>
+              <div class="author-links">
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!--  Share Bar  -->
+          <div class="share-bar">
+            <span class="share-bar-label"><i class="fas fa-share-alt me-1"></i> Share this article:</span>
+            <a class="share-btn tw"
+              href="https://twitter.com/intent/tweet?url=&text=Building+Scalable+React+Applications" target="_blank"
+              rel="noopener">
+              <i class="fab fa-twitter"></i> Twitter
+            </a>
+            <a class="share-btn li"
+              href="https://www.linkedin.com/shareArticle?url=&title=Building+Scalable+React+Applications"
+              target="_blank" rel="noopener">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+            <button class="share-btn cp" id="copyLinkBtn" onclick="copyLink()">
+              <i class="fas fa-link"></i> <span id="copyLinkText">Copy Link</span>
+            </button>
+          </div>
+
+          <!--  Post Navigation -->
+          <div class="post-nav">
+            <a href="blog-details.html" class="post-nav-card prev">
+              <div class="post-nav-dir"><i class="fas fa-arrow-left me-1"></i> Previous</div>
+              <div class="post-nav-title">Getting Started with n8n Workflows</div>
+            </a>
+            <a href="blog-details.html" class="post-nav-card next">
+              <div class="post-nav-dir">Next <i class="fas fa-arrow-right ms-1"></i></div>
+              <div class="post-nav-title">Next.js 14 Features and Updates</div>
+            </a>
+          </div>
+
+        </div><!-- /col-lg-8 -->
+
+        <!-- SIDEBAR -->
+        <div class="col-lg-4">
+
+          <!-- Table of Contents -->
+          <div class="sidebar-card">
+            <div class="sidebar-label"><i class="fas fa-list-ul"></i> Table of Contents</div>
+            <ul class="toc-list">
+              <li><a href="#folder-structure"><i class="fas fa-circle"></i> 1. Folder Structure</a></li>
+              <li><a href="#state-management"><i class="fas fa-circle"></i> 2. State Management</a></li>
+              <li><a href="#code-splitting"><i class="fas fa-circle"></i> 3. Code Splitting</a></li>
+              <li><a href="#performance"><i class="fas fa-circle"></i> 4. Performance</a></li>
+              <li><a href="#testing"><i class="fas fa-circle"></i> 5. Testing Strategy</a></li>
+              <li><a href="#conclusion"><i class="fas fa-circle"></i> 6. Conclusion</a></li>
+            </ul>
+          </div>
+
+          <!-- Related Posts -->
+          <div class="sidebar-card">
+            <div class="sidebar-label"><i class="fas fa-newspaper"></i> Related Posts</div>
+
+            <a href="blog.html" class="related-item">
+              <div class="related-thumb">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 54">
+                  <rect width="68" height="54" fill="#0a0a0a" />
+                  <rect x="8" y="8" width="52" height="8" rx="2" fill="#1d3a3a" />
+                  <rect x="8" y="22" width="38" height="5" rx="2" fill="#1a2a2a" />
+                  <rect x="8" y="32" width="30" height="5" rx="2" fill="#1a2a2a" />
+                  <circle cx="54" cy="36" r="10" fill="none" stroke="#00bfa6" stroke-width="1.5" />
+                  <text x="54" y="40" text-anchor="middle" font-family="Fira Mono" font-size="8"
+                    fill="#00bfa6">RN</text>
+                </svg>
+              </div>
+              <div>
+                <span class="related-title">React Native Performance Optimization</span>
+                <span class="related-date"><i class="fas fa-calendar-alt me-1"></i>March 10, 2024</span>
+              </div>
+            </a>
+
+            <a href="blog.html" class="related-item">
+              <div class="related-thumb">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 54">
+                  <rect width="68" height="54" fill="#0a0a0a" />
+                  <rect x="8" y="10" width="52" height="34" rx="3" fill="#111" stroke="#1a2a2a" />
+                  <circle cx="14" cy="10" r="3" fill="#00bfa6" />
+                  <circle cx="22" cy="10" r="3" fill="#9ad3ff" />
+                  <circle cx="30" cy="10" r="3" fill="#cfcfcf" opacity=".4" />
+                  <rect x="12" y="18" width="44" height="3" rx="1" fill="#1d3a3a" />
+                  <rect x="12" y="25" width="32" height="3" rx="1" fill="#1a2a2a" />
+                  <rect x="12" y="32" width="38" height="3" rx="1" fill="#1a2a2a" />
+                </svg>
+              </div>
+              <div>
+                <span class="related-title">Node.js API Development Best Practices</span>
+                <span class="related-date"><i class="fas fa-calendar-alt me-1"></i>February 28, 2024</span>
+              </div>
+            </a>
+
+            <a href="blog.html" class="related-item">
+              <div class="related-thumb">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 54">
+                  <rect width="68" height="54" fill="#0a0a0a" />
+                  <rect x="10" y="12" width="48" height="30" rx="5" fill="none" stroke="#00bfa6" stroke-width="1.5" />
+                  <rect x="20" y="20" width="28" height="14" rx="3" fill="#1d3a3a" />
+                  <text x="34" y="31" text-anchor="middle" font-family="Fira Mono" font-size="9"
+                    fill="#00bfa6">n8n</text>
+                  <line x1="10" y1="27" x2="20" y2="27" stroke="#00bfa6" stroke-width="1.5" />
+                  <line x1="48" y1="27" x2="58" y2="27" stroke="#00bfa6" stroke-width="1.5" />
+                </svg>
+              </div>
+              <div>
+                <span class="related-title">Getting Started with n8n Workflows</span>
+                <span class="related-date"><i class="fas fa-calendar-alt me-1"></i>March 5, 2024</span>
+              </div>
+            </a>
+
+            <a href="blog.html" class="related-item">
+              <div class="related-thumb">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 54">
+                  <rect width="68" height="54" fill="#0a0a0a" />
+                  <rect x="12" y="8" width="28" height="38" rx="4" fill="#111" stroke="#1d3a3a" />
+                  <rect x="46" y="16" width="16" height="30" rx="3" fill="#1d3a3a" stroke="#00bfa6" stroke-width="1" />
+                  <line x1="28" y1="22" x2="46" y2="22" stroke="#9ad3ff" stroke-width="1" stroke-dasharray="3,2" />
+                  <line x1="28" y1="32" x2="46" y2="32" stroke="#9ad3ff" stroke-width="1" stroke-dasharray="3,2" />
+                  <circle cx="26" cy="12" r="3" fill="#00bfa6" />
+                </svg>
+              </div>
+              <div>
+                <span class="related-title">Docker for Developers: A Complete Guide</span>
+                <span class="related-date"><i class="fas fa-calendar-alt me-1"></i>February 15, 2024</span>
+              </div>
+            </a>
+
+          </div>
+
+          <!-- Newsletter -->
+          <div class="sidebar-card">
+            <div class="sidebar-label"><i class="fas fa-envelope"></i> Newsletter</div>
+            <p class="newsletter">
+              Get fresh articles, tutorials, and team updates delivered to your inbox every week. No spam, ever.
+            </p>
+            <input type="email" class="form-control mb-2" id="nlEmail" placeholder="your@email.com">
+            <button class="btn btn-primary w-100" onclick="handleNewsletter()">
+              Subscribe <i class="fas fa-paper-plane ms-1"></i>
+            </button>
+            <div id="nlMsg" class="mt-2 nlmsg"></div>
+          </div>
+
+          <!-- Tags cloud -->
+          <div class="sidebar-card">
+            <div class="sidebar-label"><i class="fas fa-tags"></i> Popular Tags</div>
+            <div class="tags-cloud-div">
+              <span class="tag-pill">#React</span>
+              <span class="tag-pill">#Node.js</span>
+              <span class="tag-pill">#Docker</span>
+              <span class="tag-pill">#Next.js</span>
+              <span class="tag-pill">#n8n</span>
+              <span class="tag-pill">#Mobile</span>
+              <span class="tag-pill">#API</span>
+              <span class="tag-pill">#DevOps</span>
+              <span class="tag-pill">#TypeScript</span>
+              <span class="tag-pill">#WebDev</span>
+            </div>
+          </div>
+
+        </div><!-- /col-lg-4 -->
+      </div><!-- /row -->
+    </div><!-- /container -->
+  </div>
+
+  <!-- FOOTER  -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <h5>Cyber Samurai Software Solutions</h5>
+          <p class="text-secondary">Crafting exceptional digital experiences with cutting-edge technology.</p>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h5>Quick Links</h5>
+          <a href="about.html">About Us</a>
+          <a href="projects.html">Projects</a>
+          <a href="services.html">Services</a>
+          <a href="blog.html">Blog</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h5>Connect</h5>
+          <div class="social-links">
+            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="mailto:contact@cybersamurai.dev" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          </div>
+          <p class="mt-3 text-secondary">
+            <i class="fas fa-envelope"></i> contact@cybersamurai.dev<br>
+            <i class="fas fa-phone"></i> +1 (555) 123-4567
+          </p>
+        </div>
+      </div>
+      <hr class="border-secondary my-4">
+      <div class="text-center text-secondary">
+        <p>&copy; 2024 Cyber Samurai Software Solutions. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <div class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </div>
+
+  <script src="assets/js/jquery.js"></script>
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/all.min.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <script>
+    /* Reading progress bar */
+    window.addEventListener('scroll', () => {
+      const dh = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = dh > 0 ? (window.scrollY / dh) * 100 : 0;
+      document.getElementById('readProgress').style.width = Math.min(pct, 100) + '%';
+      const btt = document.getElementById('backToTop');
+      if (btt) btt.style.display = window.scrollY > 400 ? 'flex' : 'none';
+    });
+
+    /* Smooth scroll for TOC */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+
+    /* TOC active highlight on scroll */
+    const tocLinks = document.querySelectorAll('.toc-list a');
+    const sections = Array.from(tocLinks).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 140) current = '#' + s.id; });
+      tocLinks.forEach(a => {
+        a.parentElement.style.background = a.getAttribute('href') === current ? 'rgba(0,191,166,.07)' : '';
+        a.style.color = a.getAttribute('href') === current ? 'var(--accent-highlight)' : '';
+      });
+    });
+
+    /* Copy link */
+    function copyLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const el = document.getElementById('copyLinkText');
+        if (el) { el.textContent = 'Copied!'; setTimeout(() => el.textContent = 'Copy Link', 2200); }
+      });
+    }
+
+    /* Newsletter */
+    function handleNewsletter() {
+      const val = document.getElementById('nlEmail').value.trim();
+      const msg = document.getElementById('nlMsg');
+      if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+        msg.innerHTML = '<span style="color:#ff6b6b;"><i class="fas fa-exclamation-circle me-1"></i>Enter a valid email.</span>';
+        return;
+      }
+      msg.innerHTML = '<span style="color:var(--accent-highlight);"><i class="fas fa-check-circle me-1"></i>Subscribed! Welcome aboard.</span>';
+      document.getElementById('nlEmail').value = '';
+      setTimeout(() => msg.innerHTML = '', 4000);
+    }
+  </script>
+
+</body>
+
+</html>

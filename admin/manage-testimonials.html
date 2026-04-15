@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Manage Testimonials - Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"> -->
+
+    <link rel="stylesheet" href="../assets/css/all.min.css">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+    <style>
+        .admin-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 250px;
+            background-color: #0f0f0f;
+            border-right: 1px solid #2b2b2b;
+            padding: 2rem 0;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .admin-content {
+            margin-left: 250px;
+            padding: 2rem;
+        }
+
+        .admin-nav-link {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: #cfcfcf;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .admin-nav-link:hover,
+        .admin-nav-link.active {
+            background-color: #1a1a1a;
+            color: #00bfa6;
+            border-left: 3px solid #00bfa6;
+        }
+
+        .admin-nav-link i {
+            width: 20px;
+            margin-right: 0.75rem;
+        }
+
+        .star-rating {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .star-rating .star {
+            color: #2b2b2b;
+            transition: color 0.2s;
+        }
+
+        .star-rating .star.active {
+            color: #ffd700;
+        }
+
+        .star-rating .star:hover {
+            color: #ffd700;
+        }
+
+        .testimonial-preview {
+            background-color: #1a1a1a;
+            border: 1px solid #2b2b2b;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .testimonial-preview.show {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .admin-sidebar.show {
+                transform: translateX(0);
+            }
+
+            .admin-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-black text-light" style="font-family:Inter, system-ui, sans-serif;">
+
+    <!-- Sidebar -->
+    <nav class="admin-sidebar" id="adminSidebar">
+        <div class="px-3 mb-4">
+            <h4 class="text-accent">
+                <i class="fas fa-code"></i> Cyber Samurai
+            </h4>
+            <small class="text-secondary">Admin Panel</small>
+        </div>
+        <a href="index.html" class="admin-nav-link">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+        </a>
+        <a href="projects.html" class="admin-nav-link">
+            <i class="fas fa-briefcase"></i> Projects
+        </a>
+        <a href="blog.html" class="admin-nav-link">
+            <i class="fas fa-blog"></i> Blog Posts
+        </a>
+        <a href="testimonials.html" class="admin-nav-link active">
+            <i class="fas fa-comments"></i> Testimonials
+        </a>
+        <a href="services.html" class="admin-nav-link">
+            <i class="fas fa-cogs"></i> Services
+        </a>
+        <a href="certifications.html" class="admin-nav-link">
+            <i class="fas fa-certificate"></i> Certifications
+        </a>
+        <div class="mt-4 px-3">
+            <a href="../index.html" class="admin-nav-link">
+                <i class="fas fa-home"></i> Back to Site
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="admin-content">
+        <!-- Mobile Menu Toggle -->
+        <button class="btn btn-outline-primary d-md-none mb-3" id="sidebarToggle">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+
+        <h1 class="mb-4">Manage Testimonials</h1>
+        <div class="col-12 d-flex justify-content-start">
+            <a href="testimonials.html" class="btn btn-primary mb-3"><i class="fas fa-arrow-left"></i></a>
+        </div>
+
+        <!-- Add/Edit Testimonial Form -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title mb-4">Add New Testimonial</h5>
+                <form id="testimonialForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="clientName" class="form-label">Client Name *</label>
+                            <input type="text" class="form-control" id="clientName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="clientCompany" class="form-label">Company *</label>
+                            <input type="text" class="form-control" id="clientCompany" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="clientRole" class="form-label">Role/Position</label>
+                        <input type="text" class="form-control" id="clientRole" placeholder="e.g., CEO, CTO, Manager">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Rating *</label>
+                        <div class="star-rating" id="starRating">
+                            <i class="fas fa-star star" data-rating="1"></i>
+                            <i class="fas fa-star star" data-rating="2"></i>
+                            <i class="fas fa-star star" data-rating="3"></i>
+                            <i class="fas fa-star star" data-rating="4"></i>
+                            <i class="fas fa-star star" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" id="ratingValue" value="0" required>
+                        <small class="text-secondary">Selected: <span id="ratingDisplay">None</span></small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="testimonialText" class="form-label">Testimonial Text *</label>
+                        <textarea class="form-control" id="testimonialText" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Testimonial
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" id="resetTestimonialForm">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </form>
+
+                <!-- Preview -->
+                <div class="testimonial-preview" id="testimonialPreview">
+                    <div class="stars mb-3" id="previewStars"></div>
+                    <p class="testimonial-text" id="previewText"></p>
+                    <p class="testimonial-author" id="previewAuthor"></p>
+                    <p class="testimonial-role" id="previewRole"></p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
+    <script src="../assets/js/jquery.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/all.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Sidebar toggle
+            $('#sidebarToggle').on('click', function () {
+                $('#adminSidebar').toggleClass('show');
+            });
+
+            // Star rating widget
+            var selectedRating = 0;
+            $('.star').on('click', function () {
+                selectedRating = $(this).data('rating');
+                $('.star').each(function (index) {
+                    if (index < selectedRating) {
+                        $(this).addClass('active');
+                    } else {
+                        $(this).removeClass('active');
+                    }
+                });
+                $('#ratingValue').val(selectedRating);
+                $('#ratingDisplay').text(selectedRating + ' stars');
+                updatePreview();
+            });
+
+            $('.star').on('mouseenter', function () {
+                var rating = $(this).data('rating');
+                $('.star').each(function (index) {
+                    if (index < rating) {
+                        $(this).css('color', '#ffd700');
+                    } else {
+                        $(this).css('color', '#2b2b2b');
+                    }
+                });
+            });
+
+            $('.star-rating').on('mouseleave', function () {
+                $('.star').each(function (index) {
+                    if (index < selectedRating) {
+                        $(this).css('color', '#ffd700');
+                    } else {
+                        $(this).css('color', '#2b2b2b');
+                    }
+                });
+            });
+
+            // Update preview
+            function updatePreview() {
+                var name = $('#clientName').val();
+                var company = $('#clientCompany').val();
+                var role = $('#clientRole').val();
+                var text = $('#testimonialText').val();
+                var rating = selectedRating;
+
+                if (name || company || text) {
+                    var starsHtml = '';
+                    for (var i = 0; i < 5; i++) {
+                        if (i < rating) {
+                            starsHtml += '<i class="fas fa-star text-warning"></i>';
+                        } else {
+                            starsHtml += '<i class="far fa-star text-secondary"></i>';
+                        }
+                    }
+                    $('#previewStars').html(starsHtml);
+                    $('#previewText').text(text || 'Testimonial text will appear here...');
+                    $('#previewAuthor').text(name || 'Client Name');
+                    $('#previewRole').text((role ? role + ' at ' : '') + (company || 'Company'));
+                    $('#testimonialPreview').addClass('show');
+                } else {
+                    $('#testimonialPreview').removeClass('show');
+                }
+            }
+
+            $('#clientName, #clientCompany, #clientRole, #testimonialText').on('input', updatePreview);
+
+            // Store testimonials in browser memory
+            var testimonials = JSON.parse(localStorage.getItem('adminTestimonials') || '[]');
+
+            var adminTable = new AdminTable({
+                data: testimonials,
+                tableBody: '#testimonialsTableBody',
+                searchFields: ['name', 'company', 'id'],
+                sortField: 'name',
+                rowRender: function (testimonial, index) {
+                    var starsHtml = '';
+                    for (var i = 0; i < 5; i++) {
+                        if (i < testimonial.rating) {
+                            starsHtml += '<i class="fas fa-star text-warning"></i>';
+                        } else {
+                            starsHtml += '<i class="far fa-star text-secondary"></i>';
+                        }
+                    }
+                    return '<tr>' +
+                        '<td>' + (index + 1) + '</td>' +
+                        '<td>' + (testimonial.id || '') + '</td>' +
+                        '<td>' + testimonial.name + '</td>' +
+                        '<td>' + testimonial.company + '</td>' +
+                        '<td>' + starsHtml + '</td>' +
+                        '<td>' +
+                        '<button class="btn btn-sm btn-outline-primary me-2 edit-testimonial" data-index="' + index + '"><i class="fas fa-edit"></i></button>' +
+                        '<button class="btn btn-sm btn-outline-danger delete-testimonial" data-index="' + index + '"><i class="fas fa-trash"></i></button>' +
+                        '</td>' +
+                        '</tr>';
+                }
+            });
+
+            // Render testimonials table
+            function renderTestimonials() {
+                adminTable.setData(testimonials);
+            }
+
+            // Form submission
+            $('#testimonialForm').on('submit', function (e) {
+                e.preventDefault();
+
+                if (selectedRating === 0) {
+                    alert('Please select a rating');
+                    return;
+                }
+
+                var testimonial = {
+                    name: $('#clientName').val(),
+                    company: $('#clientCompany').val(),
+                    role: $('#clientRole').val(),
+                    rating: selectedRating,
+                    text: $('#testimonialText').val(),
+                    date: new Date().toISOString()
+                };
+
+                var editIndex = $('#testimonialForm').data('edit-index');
+                if (editIndex !== undefined) {
+                    testimonials[editIndex] = testimonial;
+                    $('#testimonialForm').removeData('edit-index');
+                } else {
+                    testimonials.push(testimonial);
+                }
+
+                localStorage.setItem('adminTestimonials', JSON.stringify(testimonials));
+                renderTestimonials();
+
+                var alert = $('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                    'Testimonial saved successfully!' +
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
+                    '</div>');
+                $('.admin-content').prepend(alert);
+                setTimeout(function () { alert.fadeOut(function () { $(this).remove(); }); }, 3000);
+
+                $('#testimonialForm')[0].reset();
+                selectedRating = 0;
+                $('.star').removeClass('active');
+                $('#ratingValue').val('0');
+                $('#ratingDisplay').text('None');
+                $('#testimonialPreview').removeClass('show');
+            });
+
+            // Edit testimonial
+            $(document).on('click', '.edit-testimonial', function () {
+                var index = $(this).data('index');
+                var testimonial = testimonials[index];
+
+                $('#clientName').val(testimonial.name);
+                $('#clientCompany').val(testimonial.company);
+                $('#clientRole').val(testimonial.role);
+                $('#testimonialText').val(testimonial.text);
+
+                selectedRating = testimonial.rating;
+                $('.star').each(function (i) {
+                    if (i < selectedRating) {
+                        $(this).addClass('active');
+                    } else {
+                        $(this).removeClass('active');
+                    }
+                });
+                $('#ratingValue').val(selectedRating);
+                $('#ratingDisplay').text(selectedRating + ' stars');
+
+                updatePreview();
+                $('#testimonialForm').data('edit-index', index);
+                $('html, body').animate({ scrollTop: 0 }, 500);
+            });
+
+            // Delete testimonial
+            $(document).on('click', '.delete-testimonial', function () {
+                if (confirm('Are you sure you want to delete this testimonial?')) {
+                    var index = $(this).data('index');
+                    testimonials.splice(index, 1);
+                    localStorage.setItem('adminTestimonials', JSON.stringify(testimonials));
+                    renderTestimonials();
+                }
+            });
+
+            // Reset form
+            $('#resetTestimonialForm').on('click', function () {
+                $('#testimonialForm')[0].reset();
+                selectedRating = 0;
+                $('.star').removeClass('active');
+                $('#ratingValue').val('0');
+                $('#ratingDisplay').text('None');
+                $('#testimonialPreview').removeClass('show');
+                $('#testimonialForm').removeData('edit-index');
+            });
+
+            // Initial render
+            renderTestimonials();
+        });
+    </script>
+</body>
+
+</html>

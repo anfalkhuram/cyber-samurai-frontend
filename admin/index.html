@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin Dashboard - Cyber Samurai</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+ <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"> -->
+
+  <link rel="stylesheet" href="../assets/css/all.min.css">
+  <link href="../assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-black text-light">
+  
+  <!-- Sidebar -->
+  <nav class="admin-sidebar" id="adminSidebar">
+    <div class="px-3 mb-4">
+      <h4 class="text-accent">
+        <i class="fas fa-code"></i> Cyber Samurai
+      </h4>
+      <small class="text-secondary">Admin Panel</small>
+    </div>
+    <a href="index.html" class="admin-nav-link active">
+      <i class="fas fa-tachometer-alt"></i> Dashboard
+    </a>
+    <a href="projects.html" class="admin-nav-link">
+      <i class="fas fa-briefcase"></i> Projects
+    </a>
+    <a href="blog.html" class="admin-nav-link">
+      <i class="fas fa-blog"></i> Blog Posts
+    </a>
+    <a href="testimonials.html" class="admin-nav-link">
+      <i class="fas fa-comments"></i> Testimonials
+    </a>
+    <a href="services.html" class="admin-nav-link">
+      <i class="fas fa-cogs"></i> Services
+    </a>
+    <a href="certifications.html" class="admin-nav-link">
+      <i class="fas fa-certificate"></i> Certifications
+    </a>
+    <div class="mt-4 px-3">
+      <a href="../index.html" class="admin-nav-link">
+        <i class="fas fa-home"></i> Back to Site
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="admin-content">
+    <!-- Mobile Menu Toggle -->
+    <button class="btn btn-outline-primary d-md-none mb-3" id="sidebarToggle">
+      <i class="fas fa-bars"></i> Menu
+    </button>
+
+    <h1 class="mb-4">Dashboard</h1>
+
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-5">
+      <div class="col-lg-3 col-md-6">
+        <div class="stat-card">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <p class="text-secondary mb-1">Total Projects</p>
+              <div class="stat-number" id="totalProjects">9</div>
+            </div>
+            <i class="fas fa-briefcase fa-3x text-accent opacity-50"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="stat-card">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <p class="text-secondary mb-1">Blog Posts</p>
+              <div class="stat-number" id="totalBlogs">6</div>
+            </div>
+            <i class="fas fa-blog fa-3x text-accent opacity-50"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="stat-card">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <p class="text-secondary mb-1">Certifications</p>
+              <div class="stat-number" id="totalCerts">6</div>
+            </div>
+            <i class="fas fa-certificate fa-3x text-accent opacity-50"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="stat-card">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <p class="text-secondary mb-1">Testimonials</p>
+              <div class="stat-number" id="totalTestimonials">8</div>
+            </div>
+            <i class="fas fa-comments fa-3x text-accent opacity-50"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="ma-admin-table-wrap ma-card p-3 p-md-4 mb-4 border border-secondary rounded">
+      <h5 class="card-title mb-4">Recent Activity</h5>
+      <div class="d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center justify-content-between gap-3 mb-3">
+        <div class="d-flex align-items-center gap-5">
+            <div class="d-flex align-items-center gap-2">
+                <label class="text-secondary small mb-0 text-nowrap">Show</label>
+                <select class="form-select form-select-sm js-admin-entries bg-dark text-light border-secondary" style="width: auto; min-width: 70px;">
+                    <option value="5" selected>5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                <span class="text-secondary small text-nowrap">entries</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <label class="text-secondary small mb-0 text-nowrap fw-bold">Sort</label>
+                <span class="ma-sort-controls">
+                    <i class="fa-solid fa-arrow-up ma-sort-arrow small active" data-dir="asc" style="cursor: pointer;"></i>
+                    
+                    <i class="fa-solid fa-arrow-down ma-sort-arrow small" data-dir="desc" style="cursor: pointer;"></i>
+                </span>
+            </div>
+        </div>
+        <div class="d-flex align-items-center">
+            <input type="search" class="form-control form-control-sm js-admin-search bg-dark text-light border-secondary" placeholder="Search…" style="max-width: 220px;" />
+        </div>
+      </div>
+      <div class="table-responsive">
+          <table class="table table-dark table-hover align-middle mb-0" id="activityTable">
+            <thead>
+              <tr>
+                <th>S.No</th>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Action</th>
+                <th>Item Details</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="activityTableBody">
+            </tbody>
+          </table>
+        </div>
+        <div class="d-flex flex-column flex-sm-row align-items-center justify-content-between gap-2 mt-3 pt-3 border-top border-secondary">
+          <div class="text-secondary small js-admin-footer-info">Showing 0 to 0 of 0 entries</div>
+          <ul class="pagination pagination-sm mb-0 js-admin-pagination"></ul>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Quick Actions</h5>
+            <div class="d-grid gap-2">
+              <a href="projects.html" class="btn btn-outline-primary">
+                <i class="fas fa-plus"></i> Add New Project
+              </a>
+              <a href="blog.html" class="btn btn-outline-primary">
+                <i class="fas fa-plus"></i> Add New Blog Post
+              </a>
+              <a href="testimonials.html" class="btn btn-outline-primary">
+                <i class="fas fa-plus"></i> Add New Testimonial
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">System Info</h5>
+            <p class="mb-2"><strong>Version:</strong> 1.0.0</p>
+            <p class="mb-2"><strong>Last Backup:</strong> 2024-03-15 10:30 AM</p>
+            <p class="mb-2"><strong>Status:</strong> <span class="badge bg-success">All Systems Operational</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/jquery.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
+  <script src="../assets/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/all.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Sidebar toggle
+      $('#sidebarToggle').on('click', function() {
+        $('#adminSidebar').toggleClass('show');
+      });
+
+      var activityData = [];
+      var actions = ['Added', 'Updated', 'Deleted', 'Reviewed'];
+      for (var i = 1; i <= 55; i++) {
+        var d = new Date(Date.now() - i * 3600000 * 5); // minus some hours
+        activityData.push({
+          id: 'ACT-' + (1000 + i),
+          date: d.toISOString().split('T')[0],
+          action: actions[i % 4],
+          item: 'System Record Asset ' + i + ' (Auto-Generated)',
+          status: '<span class="badge ' + (i % 3 === 0 ? 'bg-warning' : 'bg-success') + '">' + (i % 3 === 0 ? 'Pending' : 'Published') + '</span>'
+        });
+      }
+
+      var activityTable = new AdminTable({
+        data: activityData,
+        tableBody: '#activityTableBody',
+        searchFields: ['action', 'item', 'date', 'id'],
+        sortField: 'date',
+        rowRender: function(row, index) {
+          return '<tr>' +
+            '<td>' + (index + 1) + '</td>' +
+            '<td>' + row.id + '</td>' +
+            '<td>' + row.date + '</td>' +
+            '<td>' + row.action + '</td>' +
+            '<td>' + row.item + '</td>' +
+            '<td>' + row.status + '</td>' +
+            '</tr>';
+        }
+      });
+      
+      activityTable.render();
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Manage Blog Posts - Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"> -->
+
+  <link rel="stylesheet" href="../assets/css/all.min.css">
+  <link href="../assets/css/styles.css" rel="stylesheet">
+  <style>
+    .admin-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 250px;
+      background-color: #0f0f0f;
+      border-right: 1px solid #2b2b2b;
+      padding: 2rem 0;
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    .admin-content {
+      margin-left: 250px;
+      padding: 2rem;
+    }
+
+    .admin-nav-link {
+      display: block;
+      padding: 0.75rem 1.5rem;
+      color: #cfcfcf;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .admin-nav-link:hover,
+    .admin-nav-link.active {
+      background-color: #1a1a1a;
+      color: #00bfa6;
+      border-left: 3px solid #00bfa6;
+    }
+
+    .admin-nav-link i {
+      width: 20px;
+      margin-right: 0.75rem;
+    }
+
+    .image-preview {
+      max-width: 200px;
+      max-height: 200px;
+      border: 1px solid #2b2b2b;
+      border-radius: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .word-count {
+      color: #9aa0a6;
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 768px) {
+      .admin-sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      .admin-sidebar.show {
+        transform: translateX(0);
+      }
+
+      .admin-content {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-black text-light" style="font-family:Inter, system-ui, sans-serif;">
+
+  <!-- Sidebar -->
+  <nav class="admin-sidebar" id="adminSidebar">
+    <div class="px-3 mb-4">
+      <h4 class="text-accent">
+        <i class="fas fa-code"></i> Cyber Samurai
+      </h4>
+      <small class="text-secondary">Admin Panel</small>
+    </div>
+    <a href="index.html" class="admin-nav-link">
+      <i class="fas fa-tachometer-alt"></i> Dashboard
+    </a>
+    <a href="projects.html" class="admin-nav-link">
+      <i class="fas fa-briefcase"></i> Projects
+    </a>
+    <a href="blog.html" class="admin-nav-link active">
+      <i class="fas fa-blog"></i> Blog Posts
+    </a>
+    <a href="testimonials.html" class="admin-nav-link">
+      <i class="fas fa-comments"></i> Testimonials
+    </a>
+    <a href="services.html" class="admin-nav-link">
+      <i class="fas fa-cogs"></i> Services
+    </a>
+    <a href="certifications.html" class="admin-nav-link">
+      <i class="fas fa-certificate"></i> Certifications
+    </a>
+    <div class="mt-4 px-3">
+      <a href="../index.html" class="admin-nav-link">
+        <i class="fas fa-home"></i> Back to Site
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="admin-content">
+    <!-- Mobile Menu Toggle -->
+    <button class="btn btn-outline-primary d-md-none mb-3" id="sidebarToggle">
+      <i class="fas fa-bars"></i> Menu
+    </button>
+
+    <h1 class="mb-4">Manage Blog Posts</h1>
+      <div class="col-12 d-flex justify-content-end">
+      <a href="manage-blog.html" class="btn btn-primary mb-3"> Add Blog</a>
+    </div>
+
+  
+
+    <!-- Blog Posts Table -->
+    <div class="ma-admin-table-wrap ma-card p-3 p-md-4 mb-4 border border-secondary rounded">
+      <h5 class="card-title mb-4">All Blog Posts</h5>
+      <div class="d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center justify-content-between gap-3 mb-3">
+        <div class="d-flex align-items-center gap-5">
+            <div class="d-flex align-items-center gap-2">
+                <label class="text-secondary small mb-0 text-nowrap">Show</label>
+                <select class="form-select form-select-sm js-admin-entries bg-dark text-light border-secondary" style="width: auto; min-width: 70px;">
+                    <option value="5" selected>5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                <span class="text-secondary small text-nowrap">entries</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <label class="text-secondary small mb-0 text-nowrap fw-bold">Sort</label>
+                <span class="ma-sort-controls">
+                    <i class="fa-solid fa-arrow-up ma-sort-arrow small active" data-dir="asc" style="cursor: pointer;"></i>
+                    <i class="fa-solid fa-arrow-down ma-sort-arrow small" data-dir="desc" style="cursor: pointer;"></i>
+                </span>
+            </div>
+        </div>
+        <div class="d-flex align-items-center">
+            <input type="search" class="form-control form-control-sm js-admin-search bg-dark text-light border-secondary" placeholder="Search…" style="max-width: 220px;" />
+        </div>
+      </div>
+      <div class="table-responsive">
+          <table class="table table-dark table-hover align-middle mb-0" id="blogTable">
+            <thead>
+              <tr>
+                <th>S.No</th>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Word Count</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="blogTableBody">
+              <!-- Blog posts will be added here dynamically -->
+            </tbody>
+          </table>
+        </div>
+        <div class="d-flex flex-column flex-sm-row align-items-center justify-content-between gap-2 mt-3 pt-3 border-top border-secondary">
+          <div class="text-secondary small js-admin-footer-info">Showing 0 to 0 of 0 entries</div>
+          <ul class="pagination pagination-sm mb-0 js-admin-pagination"></ul>
+        </div>
+    </div>
+  </div>
+
+  <!-- Preview Modal -->
+  <div class="modal fade" id="previewModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="previewTitle">Blog Post Preview</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="previewContent">
+          <!-- Preview content will be inserted here -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
+  <script src="../assets/js/jquery.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
+  <script src="../assets/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/all.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    $(document).ready(function () {
+      // Sidebar toggle
+      $('#sidebarToggle').on('click', function () {
+        $('#adminSidebar').toggleClass('show');
+      });
+
+      // Word count
+      $('#blogContent').on('input', function () {
+        var text = $(this).val();
+        var words = text.trim().split(/\s+/).filter(function (word) {
+          return word.length > 0;
+        }).length;
+        $('#wordCount').text(words);
+      });
+
+      // Thumbnail preview
+      $('#blogThumbnail').on('change', function (e) {
+        var file = e.target.files[0];
+        if (file) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $('#blogThumbnailPreview').html('<img src="' + e.target.result + '" class="image-preview" alt="Thumbnail">');
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // Store blog posts in browser memory
+      var blogPosts = JSON.parse(localStorage.getItem('adminBlogPosts') || '[]');
+
+      var adminTable = new AdminTable({
+        data: blogPosts,
+        tableBody: '#blogTableBody',
+        searchFields: ['title', 'category', 'id'],
+        sortField: 'title',
+        rowRender: function(post, index) {
+          var date = new Date(post.date || Date.now()).toLocaleDateString();
+          return '<tr>' +
+            '<td>' + (index + 1) + '</td>' +
+            '<td>' + (post.id || '') + '</td>' +
+            '<td>' + post.title + '</td>' +
+            '<td><span class="badge bg-secondary">' + post.category + '</span></td>' +
+            '<td>' + date + '</td>' +
+            '<td>' + post.wordCount + '</td>' +
+            '<td>' +
+            '<button class="btn btn-sm btn-outline-primary me-2 edit-blog" data-index="' + index + '"><i class="fas fa-edit"></i></button>' +
+            '<button class="btn btn-sm btn-outline-danger delete-blog" data-index="' + index + '"><i class="fas fa-trash"></i></button>' +
+            '</td>' +
+            '</tr>';
+        }
+      });
+
+      // Render blog table
+      function renderBlogPosts() {
+        adminTable.setData(blogPosts);
+      }
+
+      // Form submission
+      $('#blogForm').on('submit', function (e) {
+        e.preventDefault();
+
+        var content = $('#blogContent').val();
+        var words = content.trim().split(/\s+/).filter(function (word) {
+          return word.length > 0;
+        }).length;
+
+        var post = {
+          title: $('#blogTitle').val(),
+          category: $('#blogCategory').val(),
+          description: $('#blogDescription').val(),
+          content: content,
+          thumbnail: $('#blogThumbnailPreview img').attr('src') || '',
+          wordCount: words,
+          date: new Date().toISOString()
+        };
+
+        var editIndex = $('#blogForm').data('edit-index');
+        if (editIndex !== undefined) {
+          blogPosts[editIndex] = post;
+          $('#blogForm').removeData('edit-index');
+        } else {
+          blogPosts.push(post);
+        }
+
+        localStorage.setItem('adminBlogPosts', JSON.stringify(blogPosts));
+        renderBlogPosts();
+
+        var alert = $('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+          'Blog post saved successfully!' +
+          '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
+          '</div>');
+        $('.admin-content').prepend(alert);
+        setTimeout(function () { alert.fadeOut(function () { $(this).remove(); }); }, 3000);
+
+        $('#blogForm')[0].reset();
+        $('#blogThumbnailPreview').empty();
+        $('#wordCount').text('0');
+      });
+
+      // Preview blog
+      $('#previewBlog').on('click', function () {
+        var title = $('#blogTitle').val() || 'Untitled';
+        var category = $('#blogCategory').val() || 'Uncategorized';
+        var description = $('#blogDescription').val() || '';
+        var content = $('#blogContent').val() || '';
+        var thumbnail = $('#blogThumbnailPreview img').attr('src') || '';
+
+        var previewHtml = '';
+        if (thumbnail) {
+          previewHtml += '<img src="' + thumbnail + '" class="img-fluid mb-3 rounded" alt="Thumbnail">';
+        }
+        previewHtml += '<h3>' + title + '</h3>';
+        previewHtml += '<p class="text-secondary"><span class="badge bg-secondary">' + category + '</span></p>';
+        previewHtml += '<p class="lead">' + description + '</p>';
+        previewHtml += '<div class="blog-content">' + content.replace(/\n/g, '<br>') + '</div>';
+
+        $('#previewTitle').text(title);
+        $('#previewContent').html(previewHtml);
+        var modal = new bootstrap.Modal(document.getElementById('previewModal'));
+        modal.show();
+      });
+
+      // Edit blog
+      $(document).on('click', '.edit-blog', function () {
+        var index = $(this).data('index');
+        var post = blogPosts[index];
+
+        $('#blogTitle').val(post.title);
+        $('#blogCategory').val(post.category);
+        $('#blogDescription').val(post.description);
+        $('#blogContent').val(post.content);
+        $('#wordCount').text(post.wordCount);
+
+        if (post.thumbnail) {
+          $('#blogThumbnailPreview').html('<img src="' + post.thumbnail + '" class="image-preview" alt="Thumbnail">');
+        }
+
+        $('#blogForm').data('edit-index', index);
+        $('html, body').animate({ scrollTop: 0 }, 500);
+      });
+
+      // Delete blog
+      $(document).on('click', '.delete-blog', function () {
+        if (confirm('Are you sure you want to delete this blog post?')) {
+          var index = $(this).data('index');
+          blogPosts.splice(index, 1);
+          localStorage.setItem('adminBlogPosts', JSON.stringify(blogPosts));
+          renderBlogPosts();
+        }
+      });
+
+      // Reset form
+      $('#resetBlogForm').on('click', function () {
+        $('#blogForm')[0].reset();
+        $('#blogThumbnailPreview').empty();
+        $('#wordCount').text('0');
+        $('#blogForm').removeData('edit-index');
+      });
+
+      // Initial render
+      renderBlogPosts();
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Manage Projects - Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"> -->
+
+  <link rel="stylesheet" href="../assets/css/all.min.css">
+  <link href="../assets/css/styles.css" rel="stylesheet">
+  <style>
+    .admin-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 250px;
+      background-color: #0f0f0f;
+      border-right: 1px solid #2b2b2b;
+      padding: 2rem 0;
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    .admin-content {
+      margin-left: 250px;
+      padding: 2rem;
+    }
+
+    .admin-nav-link {
+      display: block;
+      padding: 0.75rem 1.5rem;
+      color: #cfcfcf;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .admin-nav-link:hover,
+    .admin-nav-link.active {
+      background-color: #1a1a1a;
+      color: #00bfa6;
+      border-left: 3px solid #00bfa6;
+    }
+
+    .admin-nav-link i {
+      width: 20px;
+      margin-right: 0.75rem;
+    }
+
+    .tech-chip {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      margin: 0.25rem;
+      background-color: #1a1a1a;
+      color: #cfcfcf;
+      border: 1px solid #2b2b2b;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+
+    .tech-chip.selected {
+      background-color: #00bfa6;
+      color: #000;
+      border-color: #00bfa6;
+    }
+
+    .image-preview {
+      max-width: 200px;
+      max-height: 200px;
+      border: 1px solid #2b2b2b;
+      border-radius: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .gallery-item-preview {
+      position: relative;
+      display: inline-block;
+      margin: 0.5rem;
+    }
+
+    .gallery-item-preview img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 0.25rem;
+    }
+
+    .gallery-item-preview .remove-btn {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #ff4444;
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      color: white;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .admin-sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      .admin-sidebar.show {
+        transform: translateX(0);
+      }
+
+      .admin-content {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-black text-light" style="font-family:Inter, system-ui, sans-serif;">
+
+  <!-- Sidebar -->
+  <nav class="admin-sidebar" id="adminSidebar">
+    <div class="px-3 mb-4">
+      <h4 class="text-accent">
+        <i class="fas fa-code"></i> Cyber Samurai
+      </h4>
+      <small class="text-secondary">Admin Panel</small>
+    </div>
+    <a href="index.html" class="admin-nav-link">
+      <i class="fas fa-tachometer-alt"></i> Dashboard
+    </a>
+    <a href="projects.html" class="admin-nav-link active">
+      <i class="fas fa-briefcase"></i> Projects
+    </a>
+    <a href="blog.html" class="admin-nav-link">
+      <i class="fas fa-blog"></i> Blog Posts
+    </a>
+    <a href="testimonials.html" class="admin-nav-link">
+      <i class="fas fa-comments"></i> Testimonials
+    </a>
+    <a href="services.html" class="admin-nav-link">
+      <i class="fas fa-cogs"></i> Services
+    </a>
+    <a href="certifications.html" class="admin-nav-link">
+      <i class="fas fa-certificate"></i> Certifications
+    </a>
+    <div class="mt-4 px-3">
+      <a href="../index.html" class="admin-nav-link">
+        <i class="fas fa-home"></i> Back to Site
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="admin-content">
+    <!-- Mobile Menu Toggle -->
+    <button class="btn btn-outline-primary d-md-none mb-3" id="sidebarToggle">
+      <i class="fas fa-bars"></i> Menu
+    </button>
+
+    <h1 class="mb-4">Manage Projects</h1>
+      <div class="col-12 d-flex justify-content-start">
+      <a href="projects.html" class="btn btn-primary mb-3"><i class="fas fa-arrow-left"></i></a>
+    </div>
+
+    <!-- Add/Edit Project Form -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title mb-4">Add New Project</h5>
+        <form id="projectForm">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="projectTitle" class="form-label">Project Title *</label>
+              <input type="text" class="form-control" id="projectTitle" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="projectCategory" class="form-label">Category *</label>
+              <select class="form-control" id="projectCategory" required>
+                <option value="">Select category</option>
+                <option value="web">Web</option>
+                <option value="mobile">Mobile</option>
+                <option value="backend">Backend</option>
+                <option value="automation">Automation</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="projectDescription" class="form-label">Description *</label>
+            <textarea class="form-control" id="projectDescription" rows="4" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Tech Stack *</label>
+            <div id="techStackContainer">
+              <span class="tech-chip" data-tech="React">React</span>
+              <span class="tech-chip" data-tech="Node.js">Node.js</span>
+              <span class="tech-chip" data-tech="MongoDB">MongoDB</span>
+              <span class="tech-chip" data-tech="TypeScript">TypeScript</span>
+              <span class="tech-chip" data-tech="Next.js">Next.js</span>
+              <span class="tech-chip" data-tech="React Native">React Native</span>
+              <span class="tech-chip" data-tech="PHP">PHP</span>
+              <span class="tech-chip" data-tech="Python">Python</span>
+              <span class="tech-chip" data-tech="Docker">Docker</span>
+              <span class="tech-chip" data-tech="AWS">AWS</span>
+            </div>
+            <small class="text-secondary">Selected: <span id="selectedTech">None</span></small>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="projectLiveLink" class="form-label">Live Link</label>
+              <input type="url" class="form-control" id="projectLiveLink" placeholder="https://...">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="projectGithubLink" class="form-label">GitHub Link</label>
+              <input type="url" class="form-control" id="projectGithubLink" placeholder="https://github.com/...">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="projectThumbnail" class="form-label">Thumbnail Image</label>
+            <input type="file" class="form-control" id="projectThumbnail" accept="image/*">
+            <div id="thumbnailPreview"></div>
+          </div>
+          <div class="mb-3">
+            <label for="projectGallery" class="form-label">Gallery Images</label>
+            <input type="file" class="form-control" id="projectGallery" accept="image/*" multiple>
+            <div id="galleryPreview" class="mt-2"></div>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Save Project
+          </button>
+          <button type="button" class="btn btn-outline-secondary" id="resetForm">
+            <i class="fas fa-redo"></i> Reset
+          </button>
+        </form>
+      </div>
+    </div>
+
+  
+  </div>
+
+  <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
+  <script src="../assets/js/jquery.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
+  <script src="../assets/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/all.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    $(document).ready(function () {
+      // Sidebar toggle
+      $('#sidebarToggle').on('click', function () {
+        $('#adminSidebar').toggleClass('show');
+      });
+
+      // Tech stack selection
+      var selectedTech = [];
+      $('.tech-chip').on('click', function () {
+        $(this).toggleClass('selected');
+        var tech = $(this).data('tech');
+        if ($(this).hasClass('selected')) {
+          if (selectedTech.indexOf(tech) === -1) {
+            selectedTech.push(tech);
+          }
+        } else {
+          selectedTech = selectedTech.filter(t => t !== tech);
+        }
+        $('#selectedTech').text(selectedTech.length > 0 ? selectedTech.join(', ') : 'None');
+      });
+
+      // Thumbnail preview
+      $('#projectThumbnail').on('change', function (e) {
+        var file = e.target.files[0];
+        if (file) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $('#thumbnailPreview').html('<img src="' + e.target.result + '" class="image-preview" alt="Thumbnail">');
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // Gallery preview
+      var galleryImages = [];
+      $('#projectGallery').on('change', function (e) {
+        var files = e.target.files;
+        $('#galleryPreview').empty();
+        galleryImages = [];
+
+        for (var i = 0; i < files.length; i++) {
+          (function (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              var imgHtml = '<div class="gallery-item-preview">' +
+                '<img src="' + e.target.result + '" alt="Gallery">' +
+                '<button type="button" class="remove-btn" data-index="' + galleryImages.length + '"><i class="fas fa-times"></i></button>' +
+                '</div>';
+              $('#galleryPreview').append(imgHtml);
+              galleryImages.push(e.target.result);
+            };
+            reader.readAsDataURL(file);
+          })(files[i]);
+        }
+      });
+
+      // Remove gallery image
+      $(document).on('click', '.remove-btn', function () {
+        var index = $(this).data('index');
+        galleryImages.splice(index, 1);
+        $(this).parent().remove();
+        // Re-render gallery
+        $('#galleryPreview').empty();
+        galleryImages.forEach(function (img, idx) {
+          var imgHtml = '<div class="gallery-item-preview">' +
+            '<img src="' + img + '" alt="Gallery">' +
+            '<button type="button" class="remove-btn" data-index="' + idx + '"><i class="fas fa-times"></i></button>' +
+            '</div>';
+          $('#galleryPreview').append(imgHtml);
+        });
+      });
+
+      // Store projects in browser memory
+      var projects = JSON.parse(localStorage.getItem('adminProjects') || '[]');
+
+      var adminTable = new AdminTable({
+        data: projects,
+        tableBody: '#projectsTableBody',
+        searchFields: ['title', 'category', 'id'],
+        sortField: 'title',
+        rowRender: function(project, index) {
+          return '<tr>' +
+            '<td>' + (index + 1) + '</td>' +
+            '<td>' + (project.id || '') + '</td>' +
+            '<td>' + project.title + '</td>' +
+            '<td><span class="badge bg-secondary">' + project.category + '</span></td>' +
+            '<td>' + (project.techStack || []).join(', ') + '</td>' +
+            '<td>' +
+            '<button class="btn btn-sm btn-outline-primary me-2 edit-project" data-index="' + index + '"><i class="fas fa-edit"></i></button>' +
+            '<button class="btn btn-sm btn-outline-danger delete-project" data-index="' + index + '"><i class="fas fa-trash"></i></button>' +
+            '</td>' +
+            '</tr>';
+        }
+      });
+
+      // Render projects table
+      function renderProjects() {
+        adminTable.setData(projects);
+      }
+
+      // Form submission
+      $('#projectForm').on('submit', function (e) {
+        e.preventDefault();
+
+        var project = {
+          title: $('#projectTitle').val(),
+          category: $('#projectCategory').val(),
+          description: $('#projectDescription').val(),
+          techStack: selectedTech,
+          liveLink: $('#projectLiveLink').val(),
+          githubLink: $('#projectGithubLink').val(),
+          thumbnail: $('#thumbnailPreview img').attr('src') || '',
+          gallery: galleryImages
+        };
+
+        var editIndex = $('#projectForm').data('edit-index');
+        if (editIndex !== undefined) {
+          projects[editIndex] = project;
+          $('#projectForm').removeData('edit-index');
+        } else {
+          projects.push(project);
+        }
+
+        localStorage.setItem('adminProjects', JSON.stringify(projects));
+        renderProjects();
+
+        var alert = $('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+          'Project saved successfully!' +
+          '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
+          '</div>');
+        $('.admin-content').prepend(alert);
+        setTimeout(function () { alert.fadeOut(function () { $(this).remove(); }); }, 3000);
+
+        $('#projectForm')[0].reset();
+        $('#thumbnailPreview').empty();
+        $('#galleryPreview').empty();
+        selectedTech = [];
+        $('.tech-chip').removeClass('selected');
+        $('#selectedTech').text('None');
+      });
+
+      // Edit project
+      $(document).on('click', '.edit-project', function () {
+        var index = $(this).data('index');
+        var project = projects[index];
+
+        $('#projectTitle').val(project.title);
+        $('#projectCategory').val(project.category);
+        $('#projectDescription').val(project.description);
+        $('#projectLiveLink').val(project.liveLink);
+        $('#projectGithubLink').val(project.githubLink);
+
+        selectedTech = project.techStack || [];
+        $('.tech-chip').removeClass('selected');
+        selectedTech.forEach(function (tech) {
+          $('.tech-chip[data-tech="' + tech + '"]').addClass('selected');
+        });
+        $('#selectedTech').text(selectedTech.join(', '));
+
+        if (project.thumbnail) {
+          $('#thumbnailPreview').html('<img src="' + project.thumbnail + '" class="image-preview" alt="Thumbnail">');
+        }
+
+        galleryImages = project.gallery || [];
+        $('#galleryPreview').empty();
+        galleryImages.forEach(function (img, idx) {
+          var imgHtml = '<div class="gallery-item-preview">' +
+            '<img src="' + img + '" alt="Gallery">' +
+            '<button type="button" class="remove-btn" data-index="' + idx + '"><i class="fas fa-times"></i></button>' +
+            '</div>';
+          $('#galleryPreview').append(imgHtml);
+        });
+
+        $('#projectForm').data('edit-index', index);
+        $('html, body').animate({ scrollTop: 0 }, 500);
+      });
+
+      // Delete project
+      $(document).on('click', '.delete-project', function () {
+        if (confirm('Are you sure you want to delete this project?')) {
+          var index = $(this).data('index');
+          projects.splice(index, 1);
+          localStorage.setItem('adminProjects', JSON.stringify(projects));
+          renderProjects();
+        }
+      });
+
+      // Reset form
+      $('#resetForm').on('click', function () {
+        $('#projectForm')[0].reset();
+        $('#thumbnailPreview').empty();
+        $('#galleryPreview').empty();
+        selectedTech = [];
+        $('.tech-chip').removeClass('selected');
+        $('#selectedTech').text('None');
+        $('#projectForm').removeData('edit-index');
+      });
+
+      // Initial render
+      renderProjects();
+    });
+  </script>
+</body>
+
+</html>

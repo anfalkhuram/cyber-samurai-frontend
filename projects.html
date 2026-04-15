@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Our portfolio of projects - Web, Mobile, Backend, and Automation solutions" />
+  <title>Projects - Cyber Samurai Software Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"> -->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/all.min.css" rel="stylesheet">
+  <link href="assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-black text-light">
+  
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="fas fa-code"></i> Cyber Samurai
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link active" href="projects.html">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="certifications.html">Certifications</a></li>
+          <li class="nav-item"><a class="nav-link" href="testimonials.html">Testimonials</a></li>
+          <li class="nav-item"><a class="nav-link" href="team.html">Team</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Projects Header -->
+  <section class="section custom-hero-padding">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h1>Our Projects</h1>
+        <p class="lead">Explore our portfolio of successful software solutions</p>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn" data-filter="web">Web</button>
+        <button class="filter-btn" data-filter="mobile">Mobile</button>
+        <button class="filter-btn" data-filter="backend">Backend</button>
+        <button class="filter-btn" data-filter="automation">Automation</button>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="row g-4">
+        <!-- Project 1 -->
+        <div class="col-lg-4 col-md-6 project-item" data-category="web">
+          <div class="card project-card" onclick="window.location.href='project-detail.html?id=1'">
+            <img src="assets/images/e-commerece.png" class="project-image" alt="E-Commerce Platform" loading="lazy">
+            <div class="card-body">
+              <h5 class="card-title">E-Commerce Platform</h5>
+              <p class="card-text">Modern e-commerce solution with React and Node.js, featuring real-time inventory management.</p>
+              <div class="mb-3">
+                <span class="tech-badge">React</span>
+                <span class="tech-badge">Node.js</span>
+                <span class="tech-badge">MongoDB</span>
+                <span class="tech-badge">Stripe</span>
+              </div>
+              <div class="d-flex gap-2">
+                <a href="project-detail.html?id=1" class="btn btn-sm btn-outline-primary">Details</a>
+                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i class="fab fa-github"></i> Code</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="col-lg-4 col-md-6 project-item" data-category="mobile">
+          <div class="card project-card" onclick="window.location.href='project-detail.html?id=2'">
+            <img src="assets/images/mobile-banking.png" class="project-image" alt="Mobile Banking App" loading="lazy">
+            <div class="card-body">
+              <h5 class="card-title">Mobile Banking App</h5>
+              <p class="card-text">Secure banking application built with React Native, featuring biometric authentication.</p>
+              <div class="mb-3">
+                <span class="tech-badge">React Native</span>
+                <span class="tech-badge">Firebase</span>
+                <span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">Redux</span>
+              </div>
+              <div class="d-flex gap-2">
+                <a href="project-detail.html?id=2" class="btn btn-sm btn-outline-primary">Details</a>
+                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i class="fab fa-github"></i> Code</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="col-lg-4 col-md-6 project-item" data-category="automation">
+          <div class="card project-card" onclick="window.location.href='project-detail.html?id=3'">
+            <img src="assets/images/workflow-automation.png" class="project-image" alt="Workflow Automation" loading="lazy">
+            <div class="card-body">
+              <h5 class="card-title">Workflow Automation</h5>
+              <p class="card-text">Enterprise automation using n8n and custom integrations, reducing manual work by 80%.</p>
+              <div class="mb-3">
+                <span class="tech-badge">n8n</span>
+                <span class="tech-badge">Node.js</span>
+                <span class="tech-badge">API</span>
+                <span class="tech-badge">Webhooks</span>
+              </div>
+              <div class="d-flex gap-2">
+                <a href="project-detail.html?id=3" class="btn btn-sm btn-outline-primary">Details</a>
+                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i class="fab fa-github"></i> Code</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="col-lg-4 col-md-6 project-item" data-category="web">
+          <div class="card project-card" onclick="window.location.href='project-detail.html?id=4'">
+            <img src="assets/images/saas-dashboard.png" class="project-image" alt="SaaS Dashboard" loading="lazy">
+            <div class="card-body">
+              <h5 class="card-title">SaaS Dashboard</h5>
+              <p class="card-text">Analytics dashboard built with Next.js and real-time data visualization.</p>
+              <div class="mb-3">
+                <span class="tech-badge">Next.js</span>
+                <span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">PostgreSQL</span>
+                <span class="tech-badge">Chart.js</span>
+              </div>
+              <div class="d-flex gap-2">
+                <a href="project-detail.html?id=4" class="btn btn-sm btn-outline-primary">Details</a>
+                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i class="fab fa-github"></i> Code</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="col-lg-4 col-md-6 project-item" data-category="backend">
+          <div class="card project-card" onclick="window.location.href='project-detail.html?id=5'">
+            <img src="assets/images/rest-api.png" class="project-image" alt="REST API Service" loading="lazy">
+            <div class="card-body">
+              <h5 class="card-title">REST API Service</h5>
+              <p class="card-text">Scalable REST API built with Node.js, Express, and MongoDB with comprehensive documentation.</p>
+              <div class="mb-3">
+                <span class="tech-badge">Node.js</span>
+                <span class="tech-badge">Express</span>
+                <span class="tech-badge">MongoDB</span>
+                <span class="tech-badge">JWT</span>
+              </div>
+              <div class="d-flex gap-2">
+                <a href="project-detail.html?id=5" class="btn btn-sm btn-outline-primary">Details</a>
+                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i class="fab fa-github"></i> Code</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 6 -->
+        <div class="col-lg-4 col-md-6 project-item" data-category="mobile">
+          <div class="card project-card" onclick="window.location.href='project-detail.html?id=6'">
+            <img src="assets/images/fitness-tracking.png" class="project-image" alt="Fitness Tracking App" loading="lazy">
+            <div class="card-body">
+              <h5 class="card-title">Fitness Tracking App</h5>
+              <p class="card-text">Cross-platform fitness app with workout tracking and social features.</p>
+              <div class="mb-3">
+                <span class="tech-badge">React Native</span>
+                <span class="tech-badge">Firebase</span>
+                <span class="tech-badge">Maps API</span>
+                <span class="tech-badge">Push Notifications</span>
+              </div>
+              <div class="d-flex gap-2">
+                <a href="project-detail.html?id=6" class="btn btn-sm btn-outline-primary">Details</a>
+                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i class="fab fa-github"></i> Code</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 7 -->
+        <div class="col-lg-4 col-md-6 project-item" data-category="automation">
+          <div class="card project-card" onclick="window.location.href='project-detail.html?id=7'">
+            <img src="assets/images/pos.png" class="project-image" alt="POS Integration" loading="lazy">
+            <div class="card-body">
+              <h5 class="card-title">POS Integration System</h5>
+              <p class="card-text">Custom POS system integration with inventory and accounting software.</p>
+              <div class="mb-3">
+                <span class="tech-badge">PHP</span>
+                <span class="tech-badge">MySQL</span>
+                <span class="tech-badge">API Integration</span>
+                <span class="tech-badge">n8n</span>
+              </div>
+              <div class="d-flex gap-2">
+                <a href="project-detail.html?id=7" class="btn btn-sm btn-outline-primary">Details</a>
+                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i class="fab fa-github"></i> Code</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 8 -->
+        <div class="col-lg-4 col-md-6 project-item" data-category="web">
+          <div class="card project-card" onclick="window.location.href='project-detail.html?id=8'">
+            <img src="assets/images/portfolio.png" class="project-image" alt="Portfolio Website" loading="lazy">
+            <div class="card-body">
+              <h5 class="card-title">Portfolio Website</h5>
+              <p class="card-text">Modern, responsive portfolio website with dark theme and smooth animations.</p>
+              <div class="mb-3">
+                <span class="tech-badge">HTML5</span>
+                <span class="tech-badge">CSS3</span>
+                <span class="tech-badge">Bootstrap</span>
+                <span class="tech-badge">jQuery</span>
+              </div>
+              <div class="d-flex gap-2">
+                <a href="project-detail.html?id=8" class="btn btn-sm btn-outline-primary">Details</a>
+                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i class="fab fa-github"></i> Code</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 9 -->
+        <div class="col-lg-4 col-md-6 project-item" data-category="backend">
+          <div class="card project-card" onclick="window.location.href='project-detail.html?id=9'">
+            <img src="assets/images/microservices.png" class="project-image" alt="Microservices Architecture" loading="lazy">
+            <div class="card-body">
+              <h5 class="card-title">Microservices Architecture</h5>
+              <p class="card-text">Scalable microservices system with Docker, Kubernetes, and service mesh.</p>
+              <div class="mb-3">
+                <span class="tech-badge">Docker</span>
+                <span class="tech-badge">Kubernetes</span>
+                <span class="tech-badge">Node.js</span>
+                <span class="tech-badge">gRPC</span>
+              </div>
+              <div class="d-flex gap-2">
+                <a href="project-detail.html?id=9" class="btn btn-sm btn-outline-primary">Details</a>
+                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i class="fab fa-github"></i> Code</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Load More Button -->
+      <div class="text-center mt-5">
+        <button id="loadMoreProjects" class="btn btn-outline-primary">Load More Projects</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <h5>Cyber Samurai Software Solutions</h5>
+          <p class="text-secondary">Crafting exceptional digital experiences with cutting-edge technology.</p>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h5>Quick Links</h5>
+          <a href="about.html">About Us</a>
+          <a href="projects.html">Projects</a>
+          <a href="services.html">Services</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h5>Connect</h5>
+          <div class="social-links">
+            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="mailto:contact@cybersamurai.dev" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          </div>
+          <p class="mt-3 text-secondary">
+            <i class="fas fa-envelope"></i> contact@cybersamurai.dev<br>
+            <i class="fas fa-phone"></i> +1 (555) 123-4567
+          </p>
+        </div>
+      </div>
+      <hr class="border-secondary my-4">
+      <div class="text-center text-secondary">
+        <p>&copy; 2024 Cyber Samurai Software Solutions. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
+  <script src="assets/js/jquery.js"></script>
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/all.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
+
