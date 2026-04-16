@@ -28,6 +28,55 @@ body {
   overflow-x: hidden;
 }
 
+/* Premium Animated Background for Inner Pages */
+.bg-premium {
+  background-color: #050505;
+  color: var(--text-primary);
+  position: relative;
+  min-height: 100vh;
+}
+
+.bg-premium::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image:
+    linear-gradient(rgba(0, 191, 166, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 191, 166, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridFloat 25s linear infinite;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.bg-premium::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: 
+    radial-gradient(circle at 15% 50%, rgba(0, 191, 166, 0.12), transparent 45%),
+    radial-gradient(circle at 85% 30%, rgba(154, 211, 255, 0.08), transparent 40%),
+    radial-gradient(circle at 50% 100%, rgba(0, 191, 166, 0.08), transparent 50%),
+    radial-gradient(circle at 50% 50%, transparent 20%, #050505 100%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes gridFloat {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 60px 60px;
+  }
+}
+
 /* Typography */
 h1,
 h2,
@@ -186,30 +235,55 @@ a:hover {
   color: var(--text-secondary);
 }
 
-/* Hero Section */
+/* Hero Section - Premium Cyber Aesthetic */
 .hero {
-  min-height: 90vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-dark) 100%);
+  background-color: #030303;
   position: relative;
   overflow: hidden;
+  border-bottom: 1px solid rgba(0, 191, 166, 0.2);
 }
 
+/* Premium Animated Grid for Hero */
 .hero::before {
   content: '';
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="%232b2b2b" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-  opacity: 0.3;
+  height: 200%; /* Ensure coverage during animation */
+  background-image:
+    linear-gradient(rgba(0, 191, 166, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 191, 166, 0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: heroGridDrift 20s linear infinite;
+  z-index: 0;
+}
+
+/* Dynamic Glow Orbs for Hero */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: 
+    radial-gradient(circle at 85% 35%, rgba(0, 191, 166, 0.08), transparent 45%),
+    radial-gradient(circle at 15% 65%, rgba(154, 211, 255, 0.06), transparent 50%),
+    radial-gradient(circle at 50% 100%, rgba(0, 191, 166, 0.04), transparent 40%),
+    linear-gradient(180deg, transparent 40%, #030303 100%);
+  z-index: 1;
+}
+
+@keyframes heroGridDrift {
+  0% { background-position: 0 0; }
+  100% { background-position: 60px 60px; }
 }
 
 .hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .hero h1 {

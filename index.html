@@ -19,6 +19,7 @@
 
   <link rel="stylesheet" href="assets/css/all.min.css">
   <link href="assets/css/styles.css" rel="stylesheet">
+  <link href="assets/css/hero-globe.css" rel="stylesheet">
 </head>
 
 <body class="bg-black text-light">
@@ -52,7 +53,7 @@
   <section class="hero">
     <div class="container pt-lg-0 pt-5 mt-5 mt-lg-0">
       <div class="row align-items-center">
-        <div class="col-lg-8 hero-content">
+        <div class="col-lg-7 hero-content">
           <h1>Cyber Samurai Software Solutions</h1>
           <p class="tagline">Crafting exceptional digital experiences with cutting-edge technology</p>
           <div class="hero-buttons">
@@ -62,6 +63,12 @@
             <a href="contact.html" class="btn btn-outline-primary">
               <i class="fas fa-envelope"></i> Get In Touch
             </a>
+          </div>
+        </div>
+        <div class="col-lg-5 d-none d-lg-block">
+          <div class="hero-globe-wrap" aria-hidden="true">
+            <div id="hero-globe-canvas"></div>
+            <div id="hero-globe-labels"></div>
           </div>
         </div>
       </div>
@@ -240,6 +247,10 @@
   <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
   <script src="assets/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/all.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="assets/js/hero-globe-three.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
 
