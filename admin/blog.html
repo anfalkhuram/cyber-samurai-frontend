@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="shortcut icon" href="../assets/images/icon.png" type="image/x-icon">
   <title>Manage Blog Posts - Admin</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -125,62 +126,66 @@
     </button>
 
     <h1 class="mb-4">Manage Blog Posts</h1>
-      <div class="col-12 d-flex justify-content-end">
+    <div class="col-12 d-flex justify-content-end">
       <a href="manage-blog.html" class="btn btn-primary mb-3"> Add Blog</a>
     </div>
 
-  
+
 
     <!-- Blog Posts Table -->
     <div class="ma-admin-table-wrap ma-card p-3 p-md-4 mb-4 border border-secondary rounded">
       <h5 class="card-title mb-4">All Blog Posts</h5>
-      <div class="d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center justify-content-between gap-3 mb-3">
+      <div
+        class="d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center justify-content-between gap-3 mb-3">
         <div class="d-flex align-items-center gap-5">
-            <div class="d-flex align-items-center gap-2">
-                <label class="text-secondary small mb-0 text-nowrap">Show</label>
-                <select class="form-select form-select-sm js-admin-entries bg-dark text-light border-secondary" style="width: auto; min-width: 70px;">
-                    <option value="5" selected>5</option>
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-                <span class="text-secondary small text-nowrap">entries</span>
-            </div>
-            <div class="d-flex align-items-center gap-2">
-                <label class="text-secondary small mb-0 text-nowrap fw-bold">Sort</label>
-                <span class="ma-sort-controls">
-                    <i class="fa-solid fa-arrow-up ma-sort-arrow small active" data-dir="asc" style="cursor: pointer;"></i>
-                    <i class="fa-solid fa-arrow-down ma-sort-arrow small" data-dir="desc" style="cursor: pointer;"></i>
-                </span>
-            </div>
+          <div class="d-flex align-items-center gap-2">
+            <label class="text-secondary small mb-0 text-nowrap">Show</label>
+            <select class="form-select form-select-sm js-admin-entries bg-dark text-light border-secondary"
+              style="width: auto; min-width: 70px;">
+              <option value="5" selected>5</option>
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+            <span class="text-secondary small text-nowrap">entries</span>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <label class="text-secondary small mb-0 text-nowrap fw-bold">Sort</label>
+            <span class="ma-sort-controls">
+              <i class="fa-solid fa-arrow-up ma-sort-arrow small active" data-dir="asc" style="cursor: pointer;"></i>
+              <i class="fa-solid fa-arrow-down ma-sort-arrow small" data-dir="desc" style="cursor: pointer;"></i>
+            </span>
+          </div>
         </div>
         <div class="d-flex align-items-center">
-            <input type="search" class="form-control form-control-sm js-admin-search bg-dark text-light border-secondary" placeholder="Search…" style="max-width: 220px;" />
+          <input type="search" class="form-control form-control-sm js-admin-search bg-dark text-light border-secondary"
+            placeholder="Search…" style="max-width: 220px;" />
         </div>
       </div>
       <div class="table-responsive">
-          <table class="table table-dark table-hover align-middle mb-0" id="blogTable">
-            <thead>
-              <tr>
-                <th>S.No</th>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Category</th>
-                <th>Date</th>
-                <th>Word Count</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="blogTableBody">
-              <!-- Blog posts will be added here dynamically -->
-            </tbody>
-          </table>
-        </div>
-        <div class="d-flex flex-column flex-sm-row align-items-center justify-content-between gap-2 mt-3 pt-3 border-top border-secondary">
-          <div class="text-secondary small js-admin-footer-info">Showing 0 to 0 of 0 entries</div>
-          <ul class="pagination pagination-sm mb-0 js-admin-pagination"></ul>
-        </div>
+        <table class="table table-dark table-hover align-middle mb-0" id="blogTable">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Date</th>
+              <th>Word Count</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="blogTableBody">
+            <!-- Blog posts will be added here dynamically -->
+          </tbody>
+        </table>
+      </div>
+      <div
+        class="d-flex flex-column flex-sm-row align-items-center justify-content-between gap-2 mt-3 pt-3 border-top border-secondary">
+        <div class="text-secondary small js-admin-footer-info">Showing 0 to 0 of 0 entries</div>
+        <ul class="pagination pagination-sm mb-0 js-admin-pagination"></ul>
+      </div>
     </div>
   </div>
 
@@ -244,7 +249,7 @@
         tableBody: '#blogTableBody',
         searchFields: ['title', 'category', 'id'],
         sortField: 'title',
-        rowRender: function(post, index) {
+        rowRender: function (post, index) {
           var date = new Date(post.date || Date.now()).toLocaleDateString();
           return '<tr>' +
             '<td>' + (index + 1) + '</td>' +
