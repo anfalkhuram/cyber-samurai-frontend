@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -13,8 +14,9 @@
   <link href="assets/css/all.min.css" rel="stylesheet">
   <link href="assets/css/styles.css" rel="stylesheet">
 </head>
+
 <body class="bg-premium text-light">
-  
+
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
@@ -30,11 +32,20 @@
           <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
           <li class="nav-item"><a class="nav-link active" href="projects.html">Projects</a></li>
           <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
-          <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-          <li class="nav-item"><a class="nav-link" href="certifications.html">Certifications</a></li>
           <li class="nav-item"><a class="nav-link" href="testimonials.html">Testimonials</a></li>
-          <li class="nav-item"><a class="nav-link" href="team.html">Team</a></li>
           <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarMore" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              More
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarMore">
+              <li><a class="dropdown-item" href="blog.html">Blog</a></li>
+              <li><a class="dropdown-item" href="certifications.html">Certifications</a></li>
+              <li><a class="dropdown-item" href="team.html">Team</a></li>
+            </ul>
+          </li>
+
         </ul>
       </div>
     </div>
@@ -65,7 +76,8 @@
             <img src="assets/images/e-commerece.png" class="project-image" alt="E-Commerce Platform" loading="lazy">
             <div class="card-body">
               <h5 class="card-title">E-Commerce Platform</h5>
-              <p class="card-text">Modern e-commerce solution with React and Node.js, featuring real-time inventory management.</p>
+              <p class="card-text">Modern e-commerce solution with React and Node.js, featuring real-time inventory
+                management.</p>
               <div class="mb-3">
                 <span class="tech-badge">React</span>
                 <span class="tech-badge">Node.js</span>
@@ -74,7 +86,8 @@
               </div>
               <div class="d-flex gap-2">
                 <a href="project-detail.html?id=1" class="btn btn-sm btn-outline-primary">Details</a>
-                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i class="fab fa-github"></i> Code</a>
+                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i
+                    class="fab fa-github"></i> Code</a>
               </div>
             </div>
           </div>
@@ -86,7 +99,8 @@
             <img src="assets/images/mobile-banking.png" class="project-image" alt="Mobile Banking App" loading="lazy">
             <div class="card-body">
               <h5 class="card-title">Mobile Banking App</h5>
-              <p class="card-text">Secure banking application built with React Native, featuring biometric authentication.</p>
+              <p class="card-text">Secure banking application built with React Native, featuring biometric
+                authentication.</p>
               <div class="mb-3">
                 <span class="tech-badge">React Native</span>
                 <span class="tech-badge">Firebase</span>
@@ -95,7 +109,8 @@
               </div>
               <div class="d-flex gap-2">
                 <a href="project-detail.html?id=2" class="btn btn-sm btn-outline-primary">Details</a>
-                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i class="fab fa-github"></i> Code</a>
+                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i
+                    class="fab fa-github"></i> Code</a>
               </div>
             </div>
           </div>
@@ -104,10 +119,12 @@
         <!-- Project 3 -->
         <div class="col-lg-4 col-md-6 project-item" data-category="automation">
           <div class="card project-card" onclick="window.location.href='project-detail.html?id=3'">
-            <img src="assets/images/workflow-automation.png" class="project-image" alt="Workflow Automation" loading="lazy">
+            <img src="assets/images/workflow-automation.png" class="project-image" alt="Workflow Automation"
+              loading="lazy">
             <div class="card-body">
               <h5 class="card-title">Workflow Automation</h5>
-              <p class="card-text">Enterprise automation using n8n and custom integrations, reducing manual work by 80%.</p>
+              <p class="card-text">Enterprise automation using n8n and custom integrations, reducing manual work by 80%.
+              </p>
               <div class="mb-3">
                 <span class="tech-badge">n8n</span>
                 <span class="tech-badge">Node.js</span>
@@ -116,7 +133,8 @@
               </div>
               <div class="d-flex gap-2">
                 <a href="project-detail.html?id=3" class="btn btn-sm btn-outline-primary">Details</a>
-                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i class="fab fa-github"></i> Code</a>
+                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i
+                    class="fab fa-github"></i> Code</a>
               </div>
             </div>
           </div>
@@ -137,7 +155,8 @@
               </div>
               <div class="d-flex gap-2">
                 <a href="project-detail.html?id=4" class="btn btn-sm btn-outline-primary">Details</a>
-                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i class="fab fa-github"></i> Code</a>
+                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i
+                    class="fab fa-github"></i> Code</a>
               </div>
             </div>
           </div>
@@ -149,7 +168,8 @@
             <img src="assets/images/rest-api.png" class="project-image" alt="REST API Service" loading="lazy">
             <div class="card-body">
               <h5 class="card-title">REST API Service</h5>
-              <p class="card-text">Scalable REST API built with Node.js, Express, and MongoDB with comprehensive documentation.</p>
+              <p class="card-text">Scalable REST API built with Node.js, Express, and MongoDB with comprehensive
+                documentation.</p>
               <div class="mb-3">
                 <span class="tech-badge">Node.js</span>
                 <span class="tech-badge">Express</span>
@@ -158,7 +178,8 @@
               </div>
               <div class="d-flex gap-2">
                 <a href="project-detail.html?id=5" class="btn btn-sm btn-outline-primary">Details</a>
-                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i class="fab fa-github"></i> Code</a>
+                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i
+                    class="fab fa-github"></i> Code</a>
               </div>
             </div>
           </div>
@@ -167,7 +188,8 @@
         <!-- Project 6 -->
         <div class="col-lg-4 col-md-6 project-item" data-category="mobile">
           <div class="card project-card" onclick="window.location.href='project-detail.html?id=6'">
-            <img src="assets/images/fitness-tracking.png" class="project-image" alt="Fitness Tracking App" loading="lazy">
+            <img src="assets/images/fitness-tracking.png" class="project-image" alt="Fitness Tracking App"
+              loading="lazy">
             <div class="card-body">
               <h5 class="card-title">Fitness Tracking App</h5>
               <p class="card-text">Cross-platform fitness app with workout tracking and social features.</p>
@@ -179,7 +201,8 @@
               </div>
               <div class="d-flex gap-2">
                 <a href="project-detail.html?id=6" class="btn btn-sm btn-outline-primary">Details</a>
-                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i class="fab fa-github"></i> Code</a>
+                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i
+                    class="fab fa-github"></i> Code</a>
               </div>
             </div>
           </div>
@@ -200,7 +223,8 @@
               </div>
               <div class="d-flex gap-2">
                 <a href="project-detail.html?id=7" class="btn btn-sm btn-outline-primary">Details</a>
-                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i class="fab fa-github"></i> Code</a>
+                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i
+                    class="fab fa-github"></i> Code</a>
               </div>
             </div>
           </div>
@@ -221,7 +245,8 @@
               </div>
               <div class="d-flex gap-2">
                 <a href="project-detail.html?id=8" class="btn btn-sm btn-outline-primary">Details</a>
-                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i class="fab fa-github"></i> Code</a>
+                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i
+                    class="fab fa-github"></i> Code</a>
               </div>
             </div>
           </div>
@@ -230,7 +255,8 @@
         <!-- Project 9 -->
         <div class="col-lg-4 col-md-6 project-item" data-category="backend">
           <div class="card project-card" onclick="window.location.href='project-detail.html?id=9'">
-            <img src="assets/images/microservices.png" class="project-image" alt="Microservices Architecture" loading="lazy">
+            <img src="assets/images/microservices.png" class="project-image" alt="Microservices Architecture"
+              loading="lazy">
             <div class="card-body">
               <h5 class="card-title">Microservices Architecture</h5>
               <p class="card-text">Scalable microservices system with Docker, Kubernetes, and service mesh.</p>
@@ -242,7 +268,8 @@
               </div>
               <div class="d-flex gap-2">
                 <a href="project-detail.html?id=9" class="btn btn-sm btn-outline-primary">Details</a>
-                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i class="fab fa-github"></i> Code</a>
+                <a href="#" class="btn btn-sm btn-ghost" onclick="event.stopPropagation();"><i
+                    class="fab fa-github"></i> Code</a>
               </div>
             </div>
           </div>
@@ -299,5 +326,5 @@
   <script src="assets/js/all.min.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
-</html>
 
+</html>

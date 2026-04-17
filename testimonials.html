@@ -34,11 +34,19 @@
           <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
           <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
           <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
-          <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-          <li class="nav-item"><a class="nav-link" href="certifications.html">Certifications</a></li>
           <li class="nav-item"><a class="nav-link active" href="testimonials.html">Testimonials</a></li>
-          <li class="nav-item"><a class="nav-link" href="team.html">Team</a></li>
           <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarMore" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              More
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarMore">
+              <li><a class="dropdown-item" href="blog.html">Blog</a></li>
+              <li><a class="dropdown-item" href="certifications.html">Certifications</a></li>
+              <li><a class="dropdown-item" href="team.html">Team</a></li>
+            </ul>
+          </li>
+
         </ul>
       </div>
     </div>
@@ -264,16 +272,16 @@
               <form id="testimonialForm">
                 <div class="mb-3">
                   <label for="clientName" class="form-label">Your Name *</label>
-                  <input type="text" class="form-control" id="clientName" name="clientName" required>
+                  <input type="text" class="form-control" id="clientName" name="clientName" required maxlength="30">
                 </div>
                 <div class="mb-3">
                   <label for="clientRole" class="form-label">Your Role</label>
                   <input type="text" class="form-control" id="clientRole" name="clientRole"
-                    placeholder="e.g., CEO, CTO, Manager">
+                    placeholder="e.g., CEO, CTO, Manager" maxlength="15">
                 </div>
                 <div class="mb-3">
                   <label for="clientCompany" class="form-label">Company</label>
-                  <input type="text" class="form-control" id="clientCompany" name="clientCompany">
+                  <input type="text" class="form-control" id="clientCompany" name="clientCompany" required maxlength="50">
                 </div>
                 <div class="mb-3">
                   <label for="testimonialRating" class="form-label">Rating *</label>
@@ -289,6 +297,7 @@
                 <div class="mb-3">
                   <label for="testimonialMessage" class="form-label">Your Testimonial *</label>
                   <textarea class="form-control" id="testimonialMessage" name="message" rows="5" required></textarea>
+                  <small id="wordCount" class="text-accent">0 / 50 words</small>
                 </div>
                 <div class="text-center">
                   <button type="submit" class="btn btn-primary">
@@ -348,28 +357,7 @@
   <script src="assets/js/main.js"></script>
   <script src="assets/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
 
-  <script>
-    // Testimonial form submission
-    $(document).ready(function () {
-      $('#testimonialForm').on('submit', function (e) {
-        e.preventDefault();
-
-        var $alert = $('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
-          '<strong>Thank you!</strong> Your testimonial has been submitted. We appreciate your feedback!' +
-          '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
-          '</div>');
-
-        $('#testimonialForm').before($alert);
-        $('#testimonialForm')[0].reset();
-
-        setTimeout(function () {
-          $alert.fadeOut(function () {
-            $(this).remove();
-          });
-        }, 5000);
-      });
-    });
-  </script>
+  
 </body>
 
 </html>

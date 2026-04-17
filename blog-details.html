@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description"
     content="Building Scalable React Applications – deep-dive guide on architecture, state management, code splitting, and testing. By Cyber Samurai." />
-    <link rel="shortcut icon" href="assets/images/icon.png" type="image/x-icon">
+  <link rel="shortcut icon" href="assets/images/icon.png" type="image/x-icon">
   <title>Building Scalable React Applications – Cyber Samurai Blog</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=Fira+Mono:wght@400;500&display=swap"
@@ -38,11 +38,19 @@
           <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
           <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
           <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
-          <li class="nav-item"><a class="nav-link active" href="blog.html">Blog</a></li>
-          <li class="nav-item"><a class="nav-link" href="certifications.html">Certifications</a></li>
           <li class="nav-item"><a class="nav-link" href="testimonials.html">Testimonials</a></li>
-          <li class="nav-item"><a class="nav-link" href="team.html">Team</a></li>
           <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarMore" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              More
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarMore">
+              <li><a class="dropdown-item active" href="blog.html">Blog</a></li>
+              <li><a class="dropdown-item" href="certifications.html">Certifications</a></li>
+              <li><a class="dropdown-item" href="team.html">Team</a></li>
+            </ul>
+          </li>
+
         </ul>
       </div>
     </div>
@@ -584,7 +592,7 @@ const ListItem = React.memo(({ item, onDelete }) => (
         </div>
         <div class="col-md-4 mb-4">
           <h5>Connect</h5>
-           <div class="social-links">
+          <div class="social-links">
             <a href="https://github.com/anfalkhuram" target="_blank"><i class="fab fa-github"></i></a>
             <a href="https://www.linkedin.com/in/anfalkhuram" target="_blank"><i class="fab fa-linkedin"></i></a>
             <a href="https://www.behance.net/anfal-khuram" target="_blank"><i class="fab fa-behance"></i></a>
@@ -652,18 +660,7 @@ const ListItem = React.memo(({ item, onDelete }) => (
       });
     }
 
-    /* Newsletter */
-    function handleNewsletter() {
-      const val = document.getElementById('nlEmail').value.trim();
-      const msg = document.getElementById('nlMsg');
-      if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
-        msg.innerHTML = '<span style="color:#ff6b6b;"><i class="fas fa-exclamation-circle me-1"></i>Enter a valid email.</span>';
-        return;
-      }
-      msg.innerHTML = '<span style="color:var(--accent-highlight);"><i class="fas fa-check-circle me-1"></i>Subscribed! Welcome aboard.</span>';
-      document.getElementById('nlEmail').value = '';
-      setTimeout(() => msg.innerHTML = '', 4000);
-    }
+  
   </script>
 
 </body>

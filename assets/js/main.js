@@ -541,255 +541,325 @@ $(document).ready(function () {
 });
 
 // Global Admin Table Helper
-window.AdminTable = function(config) {
-    this.data = config.data || [];
-    this.tableBody = $(config.tableBody);
-    this.wrap = this.tableBody.closest('.ma-admin-table-wrap');
-    this.rowRender = config.rowRender;
-    this.searchFields = config.searchFields || ['title'];
-    this.sortField = config.sortField || 'title';
-    this.state = { page: 1, limit: 5, search: '', sortDir: 'asc' };
+window.AdminTable = function (config) {
+  this.data = config.data || [];
+  this.tableBody = $(config.tableBody);
+  this.wrap = this.tableBody.closest('.ma-admin-table-wrap');
+  this.rowRender = config.rowRender;
+  this.searchFields = config.searchFields || ['title'];
+  this.sortField = config.sortField || 'title';
+  this.state = { page: 1, limit: 5, search: '', sortDir: 'asc' };
 
-    var self = this;
+  var self = this;
 
-    // Initialize arrows style
-    this.wrap.find('.ma-sort-arrow').removeClass('active text-accent').addClass('text-secondary');
-    this.wrap.find('.ma-sort-arrow[data-dir="asc"]').removeClass('text-secondary').addClass('active text-accent');
+  // Initialize arrows style
+  this.wrap.find('.ma-sort-arrow').removeClass('active text-accent').addClass('text-secondary');
+  this.wrap.find('.ma-sort-arrow[data-dir="asc"]').removeClass('text-secondary').addClass('active text-accent');
 
-    // Fix mobile layout gap that causes Sort controls to overflow on small screens
-    this.wrap.find('.gap-5').removeClass('gap-5').addClass('gap-2 gap-sm-4 flex-wrap justify-content-between');
+  // Fix mobile layout gap that causes Sort controls to overflow on small screens
+  this.wrap.find('.gap-5').removeClass('gap-5').addClass('gap-2 gap-sm-4 flex-wrap justify-content-between');
 
-    // Ensure arrows remain side by side
-    this.wrap.find('.ma-sort-controls').css({
-        'display': 'inline-flex',
-        'flex-wrap': 'nowrap',
-        'align-items': 'center',
-        'gap': '4px'
+  // Ensure arrows remain side by side
+  this.wrap.find('.ma-sort-controls').css({
+    'display': 'inline-flex',
+    'flex-wrap': 'nowrap',
+    'align-items': 'center',
+    'gap': '4px'
+  });
+
+  // Fix clickability issues globally by padding, and ensuring pointer events
+  this.wrap.find('.ma-sort-arrow')
+    .addClass('small')
+    .css({
+      'font-size': '',
+      'padding': '0.2rem',
+      'cursor': 'pointer',
+      'pointer-events': 'auto',
+      'position': 'relative',
+      'z-index': '10',
+      'transition': 'all 0.2s ease'
     });
 
-    // Fix clickability issues globally by padding, and ensuring pointer events
-    this.wrap.find('.ma-sort-arrow')
-        .addClass('small')
-        .css({
-            'font-size': '',
-            'padding': '0.2rem',
-            'cursor': 'pointer',
-            'pointer-events': 'auto',
-            'position': 'relative',
-            'z-index': '10',
-            'transition': 'all 0.2s ease'
+  // Delegated Events for robustness
+  this.wrap.on('mouseenter', '.ma-sort-arrow', function () {
+    if (!$(this).hasClass('active')) {
+      $(this).removeClass('text-secondary').css('color', 'var(--accent-silver)');
+    }
+  });
+
+  this.wrap.on('mouseleave', '.ma-sort-arrow', function () {
+    if (!$(this).hasClass('active')) {
+      $(this).addClass('text-secondary').css('color', '');
+    }
+  });
+
+  this.wrap.on('change', '.js-admin-entries', function () { self.state.limit = parseInt($(this).val()); self.state.page = 1; self.render(); });
+  this.wrap.on('input', '.js-admin-search', function () { self.state.search = $(this).val().toLowerCase(); self.state.page = 1; self.render(); });
+
+  this.wrap.on('click', '.ma-sort-arrow', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    self.wrap.find('.ma-sort-arrow').removeClass('active text-accent').addClass('text-secondary').css('color', '');
+    $(this).removeClass('text-secondary').addClass('active text-accent').css('color', '');
+    self.state.sortDir = $(this).data('dir');
+    self.render();
+  });
+  this.wrap.on('click', '.js-admin-pagination .page-link', function (e) {
+    e.preventDefault();
+    var p = $(this).data('page');
+    if (p && !$(this).parent().hasClass('disabled')) {
+      self.state.page = p;
+      self.render();
+    }
+  });
+
+  this.setData = function (newData) {
+    this.data = newData;
+    this.render();
+  };
+
+  this.render = function () {
+    var filtered = this.data.map(function (item, idx) { return { item: item, origIndex: idx }; });
+
+    if (this.state.search) {
+      var searchStr = this.state.search;
+      var sf = this.searchFields;
+      filtered = filtered.filter(function (row) {
+        return sf.some(function (field) {
+          return row.item[field] && String(row.item[field]).toLowerCase().indexOf(searchStr) > -1;
         });
+      });
+    }
 
-    // Delegated Events for robustness
-    this.wrap.on('mouseenter', '.ma-sort-arrow', function() { 
-        if (!$(this).hasClass('active')) {
-            $(this).removeClass('text-secondary').css('color', 'var(--accent-silver)');
-        }
+    var sortF = this.sortField;
+    var dir = this.state.sortDir;
+    filtered.sort(function (a, b) {
+      var valA = String(a.item[sortF]).toLowerCase();
+      var valB = String(b.item[sortF]).toLowerCase();
+      if (valA < valB) return dir === 'asc' ? -1 : 1;
+      if (valA > valB) return dir === 'asc' ? 1 : -1;
+      return 0;
     });
 
-    this.wrap.on('mouseleave', '.ma-sort-arrow', function() { 
-        if (!$(this).hasClass('active')) {
-            $(this).addClass('text-secondary').css('color', '');
-        }
+    var total = filtered.length;
+    var totalPages = Math.ceil(total / this.state.limit) || 1;
+    if (this.state.page > totalPages) this.state.page = totalPages || 1;
+    var start = (this.state.page - 1) * this.state.limit;
+    var paginated = filtered.slice(start, start + this.state.limit);
+
+    this.tableBody.empty();
+    paginated.forEach(function (data) {
+      self.tableBody.append(self.rowRender(data.item, data.origIndex));
     });
 
-    this.wrap.on('change', '.js-admin-entries', function() { self.state.limit = parseInt($(this).val()); self.state.page = 1; self.render(); });
-    this.wrap.on('input', '.js-admin-search', function() { self.state.search = $(this).val().toLowerCase(); self.state.page = 1; self.render(); });
-    
-    this.wrap.on('click', '.ma-sort-arrow', function(e) { 
-        e.preventDefault();
-        e.stopPropagation();
-        self.wrap.find('.ma-sort-arrow').removeClass('active text-accent').addClass('text-secondary').css('color', ''); 
-        $(this).removeClass('text-secondary').addClass('active text-accent').css('color', '');
-        self.state.sortDir = $(this).data('dir'); 
-        self.render(); 
+    this.wrap.find('.js-admin-footer-info').text('Showing ' + (total === 0 ? 0 : start + 1) + ' to ' + Math.min(start + this.state.limit, total) + ' of ' + total + ' entries');
+    var pageHtml = '';
+    pageHtml += '<li class="page-item ' + (this.state.page === 1 ? 'disabled' : '') + '"><a class="page-link bg-dark text-light border-secondary" href="#" data-page="' + (this.state.page - 1) + '">Previous</a></li>';
+
+    var dStart = Math.max(1, this.state.page - 1);
+    var dEnd = Math.min(totalPages, this.state.page + 1);
+    if (this.state.page === 1) dEnd = Math.min(totalPages, 3);
+    if (this.state.page === totalPages) dStart = Math.max(1, totalPages - 2);
+
+    var pages = [];
+    for (var i = 1; i <= totalPages; i++) {
+      if (i === 1 || i === totalPages || (i >= dStart && i <= dEnd)) {
+        pages.push(i);
+      }
+    }
+
+    var pagesWithDots = [];
+    var l;
+    for (var p = 0; p < pages.length; p++) {
+      if (l) {
+        if (pages[p] - l === 2) {
+          pagesWithDots.push(l + 1);
+        } else if (pages[p] - l !== 1) {
+          pagesWithDots.push('...');
+        }
+      }
+      pagesWithDots.push(pages[p]);
+      l = pages[p];
+    }
+
+    pagesWithDots.forEach(function (i) {
+      if (i === '...') {
+        pageHtml += '<li class="page-item disabled"><span class="page-link bg-dark text-light border-secondary">...</span></li>';
+      } else {
+        pageHtml += '<li class="page-item ' + (self.state.page === i ? 'active' : '') + '"><a class="page-link ' + (self.state.page === i ? 'bg-primary border-primary text-white' : 'bg-dark text-light border-secondary') + '" href="#" data-page="' + i + '">' + i + '</a></li>';
+      }
     });
-    this.wrap.on('click', '.js-admin-pagination .page-link', function(e) {
-        e.preventDefault();
-        var p = $(this).data('page');
-        if (p && !$(this).parent().hasClass('disabled')) {
-            self.state.page = p;
-            self.render();
-        }
-    });
 
-    this.setData = function(newData) {
-        this.data = newData;
-        this.render();
-    };
-
-    this.render = function() {
-        var filtered = this.data.map(function(item, idx) { return { item: item, origIndex: idx }; });
-        
-        if (this.state.search) {
-            var searchStr = this.state.search;
-            var sf = this.searchFields;
-            filtered = filtered.filter(function(row) {
-                return sf.some(function(field) {
-                    return row.item[field] && String(row.item[field]).toLowerCase().indexOf(searchStr) > -1;
-                });
-            });
-        }
-        
-        var sortF = this.sortField;
-        var dir = this.state.sortDir;
-        filtered.sort(function(a, b) {
-            var valA = String(a.item[sortF]).toLowerCase();
-            var valB = String(b.item[sortF]).toLowerCase();
-            if (valA < valB) return dir === 'asc' ? -1 : 1;
-            if (valA > valB) return dir === 'asc' ? 1 : -1;
-            return 0;
-        });
-
-        var total = filtered.length;
-        var totalPages = Math.ceil(total / this.state.limit) || 1;
-        if (this.state.page > totalPages) this.state.page = totalPages || 1;
-        var start = (this.state.page - 1) * this.state.limit;
-        var paginated = filtered.slice(start, start + this.state.limit);
-
-        this.tableBody.empty();
-        paginated.forEach(function (data) {
-            self.tableBody.append(self.rowRender(data.item, data.origIndex));
-        });
-
-        this.wrap.find('.js-admin-footer-info').text('Showing ' + (total === 0 ? 0 : start + 1) + ' to ' + Math.min(start + this.state.limit, total) + ' of ' + total + ' entries');
-        var pageHtml = '';
-        pageHtml += '<li class="page-item ' + (this.state.page === 1 ? 'disabled' : '') + '"><a class="page-link bg-dark text-light border-secondary" href="#" data-page="' + (this.state.page - 1) + '">Previous</a></li>';
-        
-        var dStart = Math.max(1, this.state.page - 1);
-        var dEnd = Math.min(totalPages, this.state.page + 1);
-        if (this.state.page === 1) dEnd = Math.min(totalPages, 3);
-        if (this.state.page === totalPages) dStart = Math.max(1, totalPages - 2);
-
-        var pages = [];
-        for (var i = 1; i <= totalPages; i++) {
-            if (i === 1 || i === totalPages || (i >= dStart && i <= dEnd)) {
-                pages.push(i);
-            }
-        }
-        
-        var pagesWithDots = [];
-        var l;
-        for (var p = 0; p < pages.length; p++) {
-            if (l) {
-                if (pages[p] - l === 2) {
-                    pagesWithDots.push(l + 1);
-                } else if (pages[p] - l !== 1) {
-                    pagesWithDots.push('...');
-                }
-            }
-            pagesWithDots.push(pages[p]);
-            l = pages[p];
-        }
-
-        pagesWithDots.forEach(function(i) {
-            if (i === '...') {
-                pageHtml += '<li class="page-item disabled"><span class="page-link bg-dark text-light border-secondary">...</span></li>';
-            } else {
-                pageHtml += '<li class="page-item ' + (self.state.page === i ? 'active' : '') + '"><a class="page-link ' + (self.state.page === i ? 'bg-primary border-primary text-white' : 'bg-dark text-light border-secondary') + '" href="#" data-page="' + i + '">' + i + '</a></li>';
-            }
-        });
-
-        pageHtml += '<li class="page-item ' + (this.state.page === totalPages ? 'disabled' : '') + '"><a class="page-link bg-dark text-light border-secondary" href="#" data-page="' + (this.state.page + 1) + '">Next</a></li>';
-        this.wrap.find('.js-admin-pagination').html(pageHtml);
-    };
+    pageHtml += '<li class="page-item ' + (this.state.page === totalPages ? 'disabled' : '') + '"><a class="page-link bg-dark text-light border-secondary" href="#" data-page="' + (this.state.page + 1) + '">Next</a></li>';
+    this.wrap.find('.js-admin-pagination').html(pageHtml);
+  };
 };
 
 // Seed dummy data for preview purposes
 function seedDummyData() {
-    // Clear once if missing IDs (to ensure smooth update)
-    if (localStorage.getItem('adminProjects') && JSON.parse(localStorage.getItem('adminProjects')).length > 0 && !JSON.parse(localStorage.getItem('adminProjects'))[0].id) {
-        localStorage.clear();
-    }
+  // Clear once if missing IDs (to ensure smooth update)
+  if (localStorage.getItem('adminProjects') && JSON.parse(localStorage.getItem('adminProjects')).length > 0 && !JSON.parse(localStorage.getItem('adminProjects'))[0].id) {
+    localStorage.clear();
+  }
 
-    // Projects
-    if (!localStorage.getItem('adminProjects') || JSON.parse(localStorage.getItem('adminProjects')).length < 50) {
-        var projects = [];
-        var categories = ['web', 'mobile', 'backend', 'automation'];
-        var techs = ['React', 'Node.js', 'Python', 'Docker', 'AWS', 'MongoDB', 'TypeScript', 'PHP'];
-        for(var i=1; i<=55; i++) {
-            projects.push({
-                id: 'PRJ-' + (1000 + i),
-                title: 'Cyber Project ' + i,
-                category: categories[i % 4],
-                description: 'A comprehensive project demonstrating modern architecture and design principles.',
-                techStack: [techs[i % techs.length], techs[(i+1) % techs.length]],
-                liveLink: 'https://example.com',
-                githubLink: 'https://github.com/example',
-                thumbnail: '',
-                gallery: []
-            });
-        }
-        localStorage.setItem('adminProjects', JSON.stringify(projects));
+  // Projects
+  if (!localStorage.getItem('adminProjects') || JSON.parse(localStorage.getItem('adminProjects')).length < 50) {
+    var projects = [];
+    var categories = ['web', 'mobile', 'backend', 'automation'];
+    var techs = ['React', 'Node.js', 'Python', 'Docker', 'AWS', 'MongoDB', 'TypeScript', 'PHP'];
+    for (var i = 1; i <= 55; i++) {
+      projects.push({
+        id: 'PRJ-' + (1000 + i),
+        title: 'Cyber Project ' + i,
+        category: categories[i % 4],
+        description: 'A comprehensive project demonstrating modern architecture and design principles.',
+        techStack: [techs[i % techs.length], techs[(i + 1) % techs.length]],
+        liveLink: 'https://example.com',
+        githubLink: 'https://github.com/example',
+        thumbnail: '',
+        gallery: []
+      });
     }
+    localStorage.setItem('adminProjects', JSON.stringify(projects));
+  }
 
-    // Blog Posts
-    if (!localStorage.getItem('adminBlogPosts') || JSON.parse(localStorage.getItem('adminBlogPosts')).length < 50) {
-        var blogs = [];
-        var bCats = ['web', 'mobile', 'automation', 'tutorial', 'news'];
-        for(var i=1; i<=55; i++) {
-            blogs.push({
-                id: 'BLG-' + (1000 + i),
-                title: 'Development Insights ' + i,
-                category: bCats[i % 5],
-                description: 'Deep dive into modern software engineering practices.',
-                content: 'This is the detailed content for post ' + i,
-                thumbnail: '',
-                wordCount: 350 + (i * 10),
-                date: new Date(Date.now() - i * 86400000).toISOString()
-            });
-        }
-        localStorage.setItem('adminBlogPosts', JSON.stringify(blogs));
+  // Blog Posts
+  if (!localStorage.getItem('adminBlogPosts') || JSON.parse(localStorage.getItem('adminBlogPosts')).length < 50) {
+    var blogs = [];
+    var bCats = ['web', 'mobile', 'automation', 'tutorial', 'news'];
+    for (var i = 1; i <= 55; i++) {
+      blogs.push({
+        id: 'BLG-' + (1000 + i),
+        title: 'Development Insights ' + i,
+        category: bCats[i % 5],
+        description: 'Deep dive into modern software engineering practices.',
+        content: 'This is the detailed content for post ' + i,
+        thumbnail: '',
+        wordCount: 350 + (i * 10),
+        date: new Date(Date.now() - i * 86400000).toISOString()
+      });
     }
+    localStorage.setItem('adminBlogPosts', JSON.stringify(blogs));
+  }
 
-    // Testimonials
-    if (!localStorage.getItem('adminTestimonials') || JSON.parse(localStorage.getItem('adminTestimonials')).length < 50) {
-        var tests = [];
-        for(var i=1; i<=55; i++) {
-            tests.push({
-                id: 'TST-' + (1000 + i),
-                name: 'Client Name ' + i,
-                company: 'Tech Corp ' + i,
-                role: 'Director of Engineering',
-                rating: (i % 2 === 0) ? 5 : 4,
-                text: 'Outstanding delivery and exceptional code quality! Highly recommended partner.',
-                date: new Date().toISOString()
-            });
-        }
-        localStorage.setItem('adminTestimonials', JSON.stringify(tests));
+  // Testimonials
+  if (!localStorage.getItem('adminTestimonials') || JSON.parse(localStorage.getItem('adminTestimonials')).length < 50) {
+    var tests = [];
+    for (var i = 1; i <= 55; i++) {
+      tests.push({
+        id: 'TST-' + (1000 + i),
+        name: 'Client Name ' + i,
+        company: 'Tech Corp ' + i,
+        role: 'Director of Engineering',
+        rating: (i % 2 === 0) ? 5 : 4,
+        text: 'Outstanding delivery and exceptional code quality! Highly recommended partner.',
+        date: new Date().toISOString()
+      });
     }
+    localStorage.setItem('adminTestimonials', JSON.stringify(tests));
+  }
 
-    // Services
-    if (!localStorage.getItem('adminServices') || JSON.parse(localStorage.getItem('adminServices')).length < 50) {
-        var srvs = [];
-        var icons = ['globe', 'mobile-alt', 'server', 'shield-alt', 'cloud', 'code'];
-        for(var i=1; i<=55; i++) {
-            srvs.push({
-                id: 'SRV-' + (1000 + i),
-                title: 'Enterprise Service ' + i,
-                description: 'We offer robust and scalable solutions tailored for your business needs using ' + icons[i%6] + ' technologies.',
-                icon: icons[i % 6],
-                pricing: 'Starting at $' + (999 + i*100)
-            });
-        }
-        localStorage.setItem('adminServices', JSON.stringify(srvs));
+  // Services
+  if (!localStorage.getItem('adminServices') || JSON.parse(localStorage.getItem('adminServices')).length < 50) {
+    var srvs = [];
+    var icons = ['globe', 'mobile-alt', 'server', 'shield-alt', 'cloud', 'code'];
+    for (var i = 1; i <= 55; i++) {
+      srvs.push({
+        id: 'SRV-' + (1000 + i),
+        title: 'Enterprise Service ' + i,
+        description: 'We offer robust and scalable solutions tailored for your business needs using ' + icons[i % 6] + ' technologies.',
+        icon: icons[i % 6],
+        pricing: 'Starting at $' + (999 + i * 100)
+      });
     }
+    localStorage.setItem('adminServices', JSON.stringify(srvs));
+  }
 
-    // Certifications
-    if (!localStorage.getItem('adminCertifications') || JSON.parse(localStorage.getItem('adminCertifications')).length < 50) {
-        var certs = [];
-        var months = ['January', 'March', 'June', 'September', 'November'];
-        for(var i=1; i<=55; i++) {
-            certs.push({
-                id: 'CRT-' + (1000 + i),
-                title: 'Certified Professional ' + i,
-                org: 'Global Standard Board',
-                year: 2020 + (i % 5),
-                month: months[i % 5],
-                image: ''
-            });
-        }
-        localStorage.setItem('adminCertifications', JSON.stringify(certs));
+  // Certifications
+  if (!localStorage.getItem('adminCertifications') || JSON.parse(localStorage.getItem('adminCertifications')).length < 50) {
+    var certs = [];
+    var months = ['January', 'March', 'June', 'September', 'November'];
+    for (var i = 1; i <= 55; i++) {
+      certs.push({
+        id: 'CRT-' + (1000 + i),
+        title: 'Certified Professional ' + i,
+        org: 'Global Standard Board',
+        year: 2020 + (i % 5),
+        month: months[i % 5],
+        image: ''
+      });
     }
+    localStorage.setItem('adminCertifications', JSON.stringify(certs));
+  }
 }
 seedDummyData();
+
+// Simple project data loader (can be enhanced with actual data)
+var projectId = new URLSearchParams(window.location.search).get('id') || '1';
+// In a real implementation, you would fetch project data based on ID
+// For now, the page shows the default project (E-Commerce Platform)
+
+// testimonal form submission
+$('#testimonialForm').on('submit', function (e) {
+  e.preventDefault();
+
+  var $alert = $('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+    '<strong>Thank you!</strong> Your testimonial has been submitted. We appreciate your feedback!' +
+    '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
+    '</div>');
+
+  $('#testimonialForm').before($alert);
+  $('#testimonialForm')[0].reset();
+
+  setTimeout(function () {
+    $alert.fadeOut(function () {
+      $(this).remove();
+    });
+  }, 5000);
+});
+
+const textarea = document.getElementById("testimonialMessage");
+const wordCount = document.getElementById("wordCount");
+const form = textarea.closest("form");
+const maxWords = 50;
+
+function updateCount() {
+  let words = textarea.value.trim().split(/\s+/).filter(Boolean);
+
+  if (words.length > maxWords) {
+    textarea.value = words.slice(0, maxWords).join(" ");
+    words = words.slice(0, maxWords);
+  }
+
+  wordCount.textContent = `${words.length} / ${maxWords} words`;
+}
+
+textarea.addEventListener("input", updateCount);
+
+// reset counter when form resets
+form.addEventListener("reset", () => {
+  wordCount.textContent = `0 / ${maxWords} words`;
+});
+
+// also handle submit (if you manually clear form)
+form.addEventListener("submit", () => {
+  setTimeout(() => {
+    wordCount.textContent = `0 / ${maxWords} words`;
+  }, 0);
+});
+
+
+
+
+/* Newsletter */
+function handleNewsletter() {
+  const val = document.getElementById('nlEmail').value.trim();
+  const msg = document.getElementById('nlMsg');
+  if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+    msg.innerHTML = '<span style="color:#ff6b6b;"><i class="fas fa-exclamation-circle me-1"></i>Enter a valid email.</span>';
+    return;
+  }
+  msg.innerHTML = '<span style="color:var(--accent-highlight);"><i class="fas fa-check-circle me-1"></i>Subscribed! Welcome aboard.</span>';
+  document.getElementById('nlEmail').value = '';
+  setTimeout(() => msg.innerHTML = '', 4000);
+}
