@@ -185,5 +185,5 @@ For questions or issues, contact: contact@cybersamurai.dev
 
 ---
 
-**Built with ❤️ by Cyber Samurai Software Solutions**
+Built with ❤️ by Cyber Samurai Software Solutions
 
